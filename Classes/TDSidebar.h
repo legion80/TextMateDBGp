@@ -31,6 +31,12 @@
 @class TDProject;
 @class TDProjectNavigatorView;
 
+typedef enum {
+  SidebarTabNavigator = 0,
+  SidebarTabDebugger = 1,
+  SidebarTabBreakpoint = 2,
+} SidebarTab;
+
 @interface TDSidebar : NSView <NSMatrixDelegate> {
 @private
   IBOutlet NSMatrix* toolbar;
@@ -50,6 +56,6 @@
 @property (nonatomic,readonly) TDProject* project;
 
 - (IBAction)toolbarClicked:(id)sender;
-- (int)selectedView;
-- (void)selectView:(int)viewIndex;
+- (SidebarTab)selectedTab;
+- (void)selectTab:(SidebarTab)tab;
 @end

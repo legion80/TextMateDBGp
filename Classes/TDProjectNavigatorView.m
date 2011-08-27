@@ -69,7 +69,6 @@ NSComparisonResult compareFrameOriginX(id viewA, id viewB, void *context) {
     return;
   
   if ([self.dataSource isMemberOfClass:[TDOutlineViewDataSource class]]) {
-    MDLog(@"Recalculating filtered tree for item %@", [item objectForKey:@"sourceDirectory"]);
     TDProjectNavigatorView* navigatorView = (TDProjectNavigatorView*)[[[self superview] superview] superview];
     [navigatorView recalculateTree];
   }
@@ -242,8 +241,8 @@ NSComparisonResult compareFrameOriginX(id viewA, id viewB, void *context) {
 }
 
 - (void)focusSearchField {
-  if ([_sidebar selectedView] != 0)
-    [_sidebar selectView:0];
+  if ([_sidebar selectedTab] != SidebarTabNavigator)
+    [_sidebar selectTab:SidebarTabNavigator];
   
   if ([_searchField acceptsFirstResponder])
     [_searchField becomeFirstResponder];

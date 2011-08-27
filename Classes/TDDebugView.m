@@ -147,10 +147,12 @@
   TDNetworkController* nc = _project.networkController;
   if ([nc.socket isDisconnected]) {
     [button setTitle:@"Disconnect"];
+    [button setToolTip:@"Stop debugging session"];
     [nc startListening];
   }
   else {
     [button setTitle:@"Connect"];
+    [button setToolTip:@"Listen for incoming connections"];
     [nc stopListening];
     [statusLabel setStringValue:@""];
   }

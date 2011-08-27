@@ -29,6 +29,7 @@
 
 #import "TMPlugInController.h"
 
+@class TDSidebar;
 @class TDSplitView;
 
 @interface TextMateDBGp : NSObject
@@ -36,7 +37,7 @@
 // Class Methods
 + (NSBundle *)pluginBundle;
 + (NSImage *)bundledImageWithName:(NSString *)imageName;
-+ (TDSplitView *)makeSplitViewWithMainView:(NSView *)contentView sideView:(NSView *)sideView;
++ (TDSplitView *)makeSplitViewWithMainView:(NSView *)contentView sideView:(TDSidebar *)sideView;
 
 // Plugin hook
 - (id)initWithPlugInController:(id<TMPlugInController>)aController;

@@ -66,12 +66,9 @@
   if (_navigatorView)
     return _navigatorView;
   
-  NSRect contentRect = contentView.bounds;
   [NSBundle loadNibNamed:@"TDProjectNavigatorView" owner:self];
-  _navigatorView.frame = contentRect;
   _navigatorView.project = _project;
   _navigatorView.sidebar = self;
-  [contentView addSubview:_navigatorView];
   return _navigatorView;
 }
 
@@ -79,11 +76,8 @@
   if (_debugView)
     return _debugView;
   
-  NSRect contentRect = contentView.bounds;
   [NSBundle loadNibNamed:@"TDDebugView" owner:self];
-  _debugView.frame = contentRect;
   _debugView.project = _project;
-  [contentView addSubview:_debugView];
   
   _project.networkController.bookmarksEnabled = [(NSCell*)_debugView.bookmarksButton.cell state] == NSOnState;
   _project.networkController.firstLineBreak = [(NSCell*)_debugView.firstLineButton.cell state] == NSOnState;
@@ -94,11 +88,8 @@
   if (_bookmarksView)
     return _bookmarksView;
   
-  NSRect contentRect = contentView.bounds;
   [NSBundle loadNibNamed:@"TDBookmarksView" owner:self];
-  _bookmarksView.frame = contentRect;
   _bookmarksView.project = _project;
-  [contentView addSubview:_bookmarksView];
 
   return _bookmarksView;
 }
@@ -106,25 +97,31 @@
 - (void)toolbarClicked:(id)sender {
   int column = [toolbar selectedColumn];
 
+  if ([[contentView subviews] count] > 0)
+    [[[contentView subviews] objectAtIndex:0] removeFromSuperview];
+  
+  NSView* panel = nil;
   switch (column) {
-    case 0:
-      [self addSubview:self.navigatorView positioned:NSWindowAbove relativeTo:nil];
+    case SidebarTabNavigator:
+      panel = self.navigatorView;
       break;
-    case 1:
-      [self addSubview:self.debugView positioned:NSWindowAbove relativeTo:nil];
+    case SidebarTabDebugger:
+      panel = self.debugView;
       break;
-    case 2:
-      [self addSubview:self.bookmarksView positioned:NSWindowAbove relativeTo:nil];
+    case SidebarTabBreakpoint:
+      panel = self.bookmarksView;
       break;
   }
+  panel.frame = contentView.bounds;
+  [contentView addSubview:panel];
 }
 
-- (int)selectedView {
+- (SidebarTab)selectedTab {
   return [toolbar selectedColumn];
 }
 
-- (void)selectView:(int)viewIndex {
-  [toolbar selectCellAtRow:0 column:viewIndex];
+- (void)selectTab:(SidebarTab)tab {
+  [toolbar selectCellAtRow:0 column:tab];
   [self toolbarClicked:toolbar];
 }
 @end

@@ -56,11 +56,9 @@
 }
 
 - (BOOL)_recurse:(NSMutableDictionary*)node {
-//  MDLog(@"looking at %@", [node objectForKey:@"displayName"]);
   BOOL isItselfOrHasChildrenThatPassesFilter = NO;
   NSArray* children = [node objectForKey:@"children"];
   if (children) {
-//    MDLog(@"has children");
     NSMutableArray* newChildren = [children mutableCopy];
     [node setObject:newChildren forKey:@"children"];
     [newChildren release];
@@ -120,7 +118,6 @@
 
 - (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
   id child = [_originalDataSource outlineView:outlineView child:index ofItem:item];
-//  MDLog(@"child: %d item: %@ is: %@", index, [item objectForKey:@"displayName"], [child objectForKey:@"displayName"]);
   if (_currentFilter == nil || [_currentFilter isEqualToString:[NSString string]])
     return child;
   if (item == nil) {
@@ -130,12 +127,10 @@
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
-//  MDLog(@"%s item: %@", __FUNCTION__, [item objectForKey:@"displayName"]);
   return [_originalDataSource outlineView:outlineView isItemExpandable:item];
 }
 
 - (id)outlineView:(NSOutlineView *)outlineView itemForPersistentObject:(id)object {
-  MDLog();
   return [_originalDataSource outlineView:outlineView itemForPersistentObject:object];
 }
 
@@ -145,7 +140,6 @@
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
   NSInteger count = [_originalDataSource outlineView:outlineView numberOfChildrenOfItem:item];
-//  MDLog(@"item: %@ num children: %d", [item objectForKey:@"displayName"], count);
   return count;
 }
 
@@ -155,7 +149,6 @@
 
 
 - (id)outlineView:(NSOutlineView *)outlineView persistentObjectForItem:(id)item {
-  MDLog();
   return [_originalDataSource outlineView:outlineView persistentObjectForItem:item];
 }
 

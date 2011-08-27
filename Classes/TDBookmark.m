@@ -54,4 +54,8 @@
 - (BOOL)bookmarkIdDetermined {
   return _bookmarkId != -1;
 }
+
+- (NSString*)description {
+  return [NSString stringWithFormat:@"<%@: 0x%0x, id:%d, source: \"%@\", lineNumber: %d>", [self class], self, _bookmarkId, _source, _lineNumber];
+}
 @end

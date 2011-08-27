@@ -104,7 +104,7 @@
   NSWindow *window = [(NSWindowController*)self window];
   NSView *contentView = [window contentView];
 	
-  if ([[contentView className] isEqualToString:@"MDSplitView"]) {
+  if ([[contentView className] isEqualToString:@"TDDSplitView"]) {
     NSView *leftView = [[contentView subviews] objectAtIndex:0];
     NSRect leftFrame = [leftView frame];
     if (leftFrame.size.width == 0) {

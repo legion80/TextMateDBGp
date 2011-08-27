@@ -29,18 +29,21 @@
 @class TDNetworkController;
 @interface TDProject : NSObject {
   NSOutlineView* _outlineView;
+  // {item dictionary} => {hash: int, bookmarks: [bookmark, bookmark, ...]}
   NSMutableDictionary* _bookmarks;
   NSMutableArray* _bookmarkKeys;
   TDNetworkController* _networkController;
+  NSWindowController* _projectController;
 }
 
 @property (nonatomic,retain) NSOutlineView* originalOutlineView;
-@property (nonatomic,readonly) NSMutableDictionary* bookmarks;
 @property (nonatomic,readonly) NSMutableArray* bookmarkKeys;
 @property (nonatomic,readonly) TDNetworkController* networkController;
+@property (nonatomic,retain) NSWindowController* projectController;
 
-- (NSWindowController*)projectController;
 /* lineNumber is 1-index based. -1 won't try to move it to a line number. */
 - (void)openFile:(id)item atLineNumber:(int)lineNumber;
-- (void)gatherBookmarks;
+// Returns an array of operations that show the diff since the last gathering.
+- (NSArray*)gatherBookmarks;
+- (NSArray*)bookmarksForFileItem:(id)item;
 @end

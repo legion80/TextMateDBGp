@@ -27,6 +27,7 @@
 //
 
 @class GCDAsyncSocket;
+@class TDBookmark;
 @class TDNetworkController;
 @class TDPlaceholderVariable;
 
@@ -74,4 +75,6 @@ typedef enum {
 
 - (void)loadVariablesAtStackLevel:(int)level;
 - (void)updatePendingVariable:(TDPlaceholderVariable*)pendingVariable;
+- (void)addBookmark:(TDBookmark*)bookmark;
+- (void)removeBookmark:(TDBookmark*)bookmark;
 @end

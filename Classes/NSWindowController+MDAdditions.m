@@ -67,9 +67,11 @@
   
   TDTemporaryOwner* owner = [[TDTemporaryOwner alloc] init];
   [NSBundle loadNibNamed:@"TDSidebar" owner:owner];
-  [owner->sidebar.navigatorView initializeWithDrawer:drawerView];
+  TDSidebar* sidebar = owner->sidebar;
+  [sidebar.navigatorView initializeWithDrawer:drawerView];
+  sidebar.project.projectController = self;
   
-  TDSplitView *splitView = [TextMateDBGp makeSplitViewWithMainView:contentView sideView:owner->sidebar];
+  TDSplitView *splitView = [TextMateDBGp makeSplitViewWithMainView:contentView sideView:sidebar];
   
   [window setContentView:splitView];
   
@@ -77,7 +79,14 @@
   [contentView release];
   [splitView restoreLayout];
   
-  [owner->sidebar selectView:0];
+  [sidebar selectTab:SidebarTabNavigator];
+  NSOutlineView* bookmarkOutlineView = sidebar.bookmarksView.outlineView;
+  [bookmarkOutlineView beginUpdates];
+  [sidebar.project gatherBookmarks];
+  [bookmarkOutlineView endUpdates];
+  [bookmarkOutlineView reloadData];
+  [bookmarkOutlineView expandItem:nil expandChildren:YES];
+
   [owner release];
   
   [drawer close]; // does no harm if the drawer is already closed
@@ -108,12 +117,6 @@
 	
 	[bindingOptions release];
 	[keyPath release];
-  
-  [bookmarkOutlineView beginUpdates];
-  [sidebar.project gatherBookmarks];
-  [bookmarkOutlineView endUpdates];
-  [bookmarkOutlineView reloadData];
-  [bookmarkOutlineView expandItem:nil expandChildren:YES];
 }
 
 

@@ -79,21 +79,19 @@ static int s_transactionId = 0;
   _bookmarksEnabled = bookmarksEnabled;
   [self didChangeValueForKey:@"bookmarksEnabled"];
   if ([[self currentOpenSession] state] != WaitingForContact) {
-    for (NSArray* bookmarksForFile in [self.project.bookmarks allValues]) {
-      for (TDBookmark* bookmark in bookmarksForFile) {
-        if (![bookmark bookmarkIdDetermined])
-          continue;
-        [self session:[self currentOpenSession] updateBreakpointId:bookmark.bookmarkId enabled:_bookmarksEnabled];
+    for (id fileItem in self.project.bookmarkKeys) {
+      for (NSArray* bookmarksForFile in [self.project bookmarksForFileItem:fileItem]) {
+        for (TDBookmark* bookmark in bookmarksForFile) {
+          if (![bookmark bookmarkIdDetermined])
+            continue;
+          [self session:[self currentOpenSession] updateBreakpointId:bookmark.bookmarkId enabled:_bookmarksEnabled];
+        }
       }
     }
   }
 }
 
 #pragma mark GCDAsyncSocketDelegate
-- (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port {
-  MDLog();
-}
-
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
   TDDebugSession* newSession = [[TDDebugSession alloc] initWithSocket:newSocket controller:self];
   [_openSessions addObject:newSession];

@@ -31,6 +31,8 @@
 #import "JRSwizzle.h"
 #import "TDBookmark.h"
 #import "TDBookmarkFileCellView.h"
+#import "TDDebugSession.h"
+#import "TDNetworkController.h"
 #import "TDOutlineViewDataSource.h"
 #import "TDProject.h"
 #import "TDSidebar.h"
@@ -45,14 +47,15 @@
 - (void)TD_toggleCurrentBookmark:(id)menuItem {
   [self TD_toggleCurrentBookmark:menuItem];
   
-  [[(TDSplitView*)[[self window] contentView] sidebar].bookmarksView refreshBookmarks:nil];
+  TDSplitView* splitView = [[self window] contentView];
+  [splitView.sidebar.bookmarksView refreshBookmarks:nil];
 }
 
 - (void)TD_mouseDown:(NSEvent*)event {
   [self TD_mouseDown:event];
   if (![self isMemberOfClass:OakTextView])
     return;
-
+  
   NSPoint pt = [[self valueForKey:@"mouseDownPoint"] pointValue];
   float bookmarksOffset = [[self valueForKey:@"bookmarksOffset"] floatValue];
   float lineNumbersOffset = [[self valueForKey:@"lineNumbersOffset"] floatValue];
@@ -60,8 +63,10 @@
   // [OakTextView metaData] holds the caret position and first visible column and line.
   
   // line numbers offset seems to be off by 1 pixel. line number offset is 13. click at 12 does not change bookmark.
-  if (bookmarksOffset <= pt.x && pt.x < lineNumbersOffset - 1)
-    [[(TDSplitView*)[[self window] contentView] sidebar].bookmarksView refreshBookmarks:nil];
+  if (bookmarksOffset <= pt.x && pt.x < lineNumbersOffset - 1) {
+    TDSplitView* splitView = [[self window] contentView];
+    [splitView.sidebar.bookmarksView refreshBookmarks:nil];
+  }
 }
 @end
 
@@ -88,25 +93,33 @@
 
 - (void)refreshBookmarks:(id)sender {
   // toggled bookmark
-  NSWindowController* oakProjectController = (NSWindowController*)[[self window] delegate];
-  TDSplitView* splitView = [[self window] contentView];
-  TDProject* project = splitView.sidebar.project;
+  NSWindowController* oakProjectController = [_project projectController];
   NSView* tabbarView = [oakProjectController valueForKey:@"tabBarView"];
   NSView* oakTextView = [oakProjectController valueForKey:@"textView"];
   NSString* filename = [[oakProjectController valueForKey:@"currentDocument"] objectForKey:@"filename"];
-  NSOutlineView* outlineView = splitView.sidebar.bookmarksView.outlineView;
   
   // Move the caret to the center of the view, so that when we close/reopen the file it's in the same approximate location
   [oakTextView performSelector:@selector(centerCaretInDisplay:) withObject:self];
   // Close the tab to save the bookmark
   [tabbarView performSelector:@selector(closeSelectedTab)];
-  [outlineView beginUpdates];
-  [project gatherBookmarks];
-  [outlineView endUpdates];
-  [outlineView reloadData];
-  [outlineView expandItem:nil expandChildren:YES];
+  [_outlineView beginUpdates];
+  NSArray* operations = [_project gatherBookmarks];
+  [_outlineView endUpdates];
+  [_outlineView reloadData];
+  [_outlineView expandItem:nil expandChildren:YES];
   // Reopen it
-  [project openFile:filename atLineNumber:-1];  
+  [_project openFile:filename atLineNumber:-1];
+  
+  TDNetworkController* nc = [_project networkController];
+  if ([nc currentOpenSession]) {
+    for (NSDictionary* op in operations) {
+      TDBookmark* bookmark = [op objectForKey:@"bookmark"];
+      if ([[op objectForKey:@"op"] isEqualToString:@"add"])
+        [[nc currentOpenSession] addBookmark:bookmark];
+      else //@"remove"
+        [[nc currentOpenSession] removeBookmark:bookmark];
+    }
+  }
 }
 
 #pragma mark NSOutlineViewDataSource protocol
@@ -117,14 +130,14 @@
   if ([item isMemberOfClass:[TDBookmark class]])
     return nil;
   
-  return [[_project.bookmarks objectForKey:item] objectAtIndex:index];
+  return [[_project bookmarksForFileItem:item] objectAtIndex:index];
 }
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
   if (!item)
-    return [_project.bookmarks count];
+    return [_project.bookmarkKeys count];
   
   if (![item isMemberOfClass:[TDBookmark class]])
-    return [[_project.bookmarks objectForKey:item] count];
+    return [[_project bookmarksForFileItem:item] count];
   return 0;
 }
 - (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {

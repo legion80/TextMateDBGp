@@ -50,8 +50,8 @@ extern NSString *const TDDebugSessionDidUpdateVariableNotification;
 #define TAG_INITIAL_CONNECTION 1
 #define TAG_WRITE 2
 #define TAG_RESPONSE 3
-#define TAG_MASK 0x7
-#define TRANSACTION_STEP 0x8
+#define TAG_MASK 0x3
+#define TRANSACTION_STEP 0x4
 #define NO_TRANSACTION -1
 
 #define CONTEXT_LOCAL 0

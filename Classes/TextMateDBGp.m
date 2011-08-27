@@ -77,7 +77,6 @@
 
 
 + (TDSplitView *)makeSplitViewWithMainView:(NSView *)contentView sideView:(TDSidebar *)sideView {
-	MDLog();
   TDSplitView *splitView = [[TDSplitView alloc] initWithFrame:[contentView frame] mainView:contentView sideView:sideView];
   return [splitView autorelease];
 }
@@ -87,8 +86,6 @@
 
 - (id)initWithPlugInController:(id<TMPlugInController>)aController {
 	if (self = [super init]) {
-		MDLog(@"initializing 'MissingDrawer' plugin");
-		
 		[[[NSApp mainWindow] windowController] MD_splitWindowIfNeeded];
 		[[[NSApp mainWindow] windowController] MD_windowDidBecomeMain:nil];
 		[self _installMenuItems];
@@ -101,7 +98,6 @@
 #pragma mark Actions
 
 - (void)toggleSplitViewLayout:(id)sender {
-	MDLog(@"Toggle Left/Right");
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"MDToggleSplitViewLayout" object:nil];
 }
 

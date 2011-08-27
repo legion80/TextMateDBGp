@@ -100,7 +100,6 @@
 #pragma mark Drawing
 
 - (void)toggleLayout {
-  MDLog(@"toggling views");
   NSView *leftView = [[[self subviews] objectAtIndex:0] retain];
   [leftView removeFromSuperview];
   [self addSubview:leftView];
@@ -111,10 +110,8 @@
 #pragma mark Layout
 
 - (void)windowWillCloseWillCall {
-  MDLog(@"windowWillCloseWillCall");
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   if ([self.sidebar frame].size.width <= 0) {
-    MDLog(@"save only when frame not collapsed");
     NSRect sideViewFrame = [self.sidebar frame];
     sideViewFrame.size.width = MIN_SIDEVIEW_WIDTH;
     [self.sidebar setFrame:sideViewFrame];

@@ -34,11 +34,15 @@
 #import "vector"
 #include <zlib.h>
 
+@interface TDProject ()
+- (void)gatherBookmarks:(NSDictionary*)item trackDifference:(NSMutableArray*)diff;
+@end
+
 @implementation TDProject
 @synthesize originalOutlineView = _outlineView;
-@synthesize bookmarks = _bookmarks;
 @synthesize bookmarkKeys = _bookmarkKeys;
 @synthesize networkController = _networkController;
+@synthesize projectController = _projectController;
 
 - (id)init {
   if (!(self = [super init]))
@@ -55,11 +59,8 @@
   [_bookmarks release];
   [_bookmarkKeys release];
   self.originalOutlineView = nil;
+  self.projectController = nil;
   [super dealloc];
-}
-
-- (NSWindowController *)projectController {
-  return (NSWindowController*)[[_outlineView window] delegate];
 }
 
 - (void)openFile:(id)item atLineNumber:(int)lineNumber {
@@ -88,7 +89,7 @@
   }
 }
 
-- (void)_gatherBookmarks:(NSDictionary*)item {
+- (void)gatherBookmarks:(NSDictionary*)item trackDifference:(NSMutableArray*)diff {
   NSString* path = [item objectForKey:@"filename"];
   if (path) {
     const char* filePath = [path cStringUsingEncoding:NSASCIIStringEncoding];
@@ -118,16 +119,89 @@
     }
     
     NSArray* lines = [NSPropertyListSerialization propertyListFromData: [NSData dataWithBytes:&v[0] length:v.size()] mutabilityOption:NSPropertyListImmutable format:nil errorDescription:NULL];
-    NSMutableArray* lineDicts = [NSMutableArray array];
-    [_bookmarks setObject:lineDicts forKey:item];
+    
+    NSMutableArray* bookmarks = [NSMutableArray array];
+    NSNumber* pathHash = [NSNumber numberWithUnsignedInt:[path hash]];
+    NSSet* correspondingItemSet = [_bookmarks keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+      if ([[obj objectForKey:@"hash"] isEqual:pathHash]) {
+        *stop = YES;
+        return YES;
+      }
+      return NO;
+    }];
+    if ([correspondingItemSet count] == 1) {
+      id oldItem = [correspondingItemSet anyObject];
+      if (oldItem != item) {
+        id itemData = [[_bookmarks objectForKey:oldItem] retain];
+        [_bookmarks removeObjectForKey:oldItem];
+        [_bookmarks setObject:itemData forKey:item];
+        [itemData release];
+        bookmarks = [itemData objectForKey:@"bookmarks"];
+        [_bookmarkKeys removeObject:oldItem];
+      }
+    }
+    else {
+      [_bookmarks setObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                             pathHash, @"hash",
+                             bookmarks, @"bookmarks", nil]
+                     forKey:item];
+    }
+    // We assume that the line numbers listed in the extended attributes is sorted
+    int currentBookmarkIndex = 0;
+    TDBookmark* currentBookmark = [bookmarks count] > 0 ? [bookmarks objectAtIndex:currentBookmarkIndex] : nil;
     for (NSObject* line in lines) {
-      TDBookmark* bookmark = [[TDBookmark alloc] init];
-      [lineDicts addObject:bookmark];
-      [bookmark release];
+      int lineNumber = [(NSString*)line intValue];
+      
+      TDBookmark* bookmark = nil;
+      if (currentBookmark == nil) {
+        bookmark = [[TDBookmark alloc] init];
+        [bookmarks addObject:bookmark];
+        [bookmark release];
+        [diff addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                         @"add", @"op",
+                         bookmark, @"bookmark", nil]];
+      }
+      else {
+        while (currentBookmark != nil && lineNumber > currentBookmark.lineNumber) {
+          // add a new bookmark
+          [diff addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                           @"remove", @"op",
+                           currentBookmark, @"bookmark", nil]];
+          [bookmarks removeObjectAtIndex:currentBookmarkIndex];
+          
+          currentBookmark = currentBookmarkIndex < [bookmarks count] ? [bookmarks objectAtIndex:currentBookmarkIndex] : nil;
+        }
+        
+        if (lineNumber < currentBookmark.lineNumber) {
+          // add a new bookmark
+          bookmark = [[TDBookmark alloc] init];
+          [bookmarks insertObject:bookmark atIndex:currentBookmarkIndex];
+          [bookmark release];
+          ++currentBookmarkIndex;
+          [diff addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                           @"add", @"op",
+                           bookmark, @"bookmark", nil]];
+        }
+        else if (lineNumber == currentBookmark.lineNumber) {
+          // replace
+          bookmark = currentBookmark;
+          ++currentBookmarkIndex;
+          currentBookmark = currentBookmarkIndex < [bookmarks count] ? [bookmarks objectAtIndex:currentBookmarkIndex] : nil;
+        }
+      }
       
       bookmark.source = path;
       // line is either __NSCFConstantString or __NSCFString
-      bookmark.lineNumber = [(NSString*)line intValue];
+      bookmark.lineNumber = lineNumber;
+    }
+    // any leftover bookmarks in the array do not exist
+    while (currentBookmark != nil) {
+      [diff addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                       @"remove", @"op",
+                       [bookmarks objectAtIndex:currentBookmarkIndex], @"bookmark",
+                       nil]];
+      [bookmarks removeObjectAtIndex:currentBookmarkIndex];
+      currentBookmark = currentBookmarkIndex < [bookmarks count] ? [bookmarks objectAtIndex:currentBookmarkIndex] : nil;
     }
     return;
   }
@@ -135,24 +209,30 @@
   NSArray* children = [item objectForKey:@"children"];
   if (children) {
     for (NSDictionary* subitem in children) {
-      [self _gatherBookmarks:subitem];
+      [self gatherBookmarks:subitem trackDifference:diff];
     }
   }
 }
 
-- (void)gatherBookmarks {
+- (NSArray*)gatherBookmarks {
   NSArray* rootItems = [[self projectController] valueForKey:@"rootItems"];
-  [_bookmarks removeAllObjects];
-  [_bookmarkKeys removeAllObjects];
+  NSMutableArray* diff = [NSMutableArray array];
   for (NSDictionary* item in rootItems) {
-    [self _gatherBookmarks:item];
+    [self gatherBookmarks:item trackDifference:diff];
   }
+  // whatever is leftover in _bookmarkKeys are files that have no bookmarks
+  [_bookmarks removeObjectsForKeys:_bookmarkKeys];
+  [_bookmarkKeys removeAllObjects];
   [_bookmarkKeys addObjectsFromArray:[_bookmarks allKeys]];
   [_bookmarkKeys sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
     NSString* fileName1 = [[obj1 objectForKey:@"filename"] lastPathComponent];
     NSString* fileName2 = [[obj2 objectForKey:@"filename"] lastPathComponent];
     return [fileName1 compare:fileName2];
   }];
+  return diff;
+}
 
+- (NSArray *)bookmarksForFileItem:(id)item {
+  return [[_bookmarks objectForKey:item] objectForKey:@"bookmarks"];
 }
 @end

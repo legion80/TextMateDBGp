@@ -86,9 +86,9 @@
   [_controller session:self featureGet:@"max_data"];
   _waitForTag = [_controller session:self featureGet:@"max_depth"];
   for (NSDictionary* fileItem in _controller.project.bookmarkKeys) {
-    for (TDBookmark* bookmark in [_controller.project.bookmarks objectForKey:fileItem]) {
+    for (TDBookmark* bookmark in [_controller.project bookmarksForFileItem:fileItem]) {
       long lineNumber = bookmark.lineNumber + 1;
-      _waitForTag = [_controller session:self setLineBreakpointInFile:[NSString stringWithFormat:@"file:/%@", bookmark.source] lineNumber:lineNumber temporary:false enabled:YES];
+      _waitForTag = [_controller session:self setLineBreakpointInFile:[NSString stringWithFormat:@"file:/%@", bookmark.source] lineNumber:lineNumber temporary:NO enabled:YES];
       [_transactionData setObject:bookmark forKey:[NSNumber numberWithInt:_waitForTag]];
     }
   }
@@ -111,8 +111,15 @@
 
 - (void)didReadData:(NSXMLDocument *)xmlResponse withTag:(long)tag {
   [self processResponse:xmlResponse];
-  if ([_lastCommand isEqualToString:@"stop"] || [_lastStatus isEqualToString:DBGpStatusStopping]) {
+  if ([_lastCommand isEqualToString:DBGpCommandStop] || [_lastStatus isEqualToString:DBGpStatusStopping]) {
     self.state = Stopped;
+  }
+  else if ([_lastCommand isEqualToString:DBGpCommandBreakpointSet]) {
+    NSNumber* transactionId = [NSNumber numberWithInt:_lastTransactionId];
+    TDBookmark* bookmark = [_transactionData objectForKey:transactionId];
+    /// Always override the bookmark ID because xdebug increments the #s.
+    bookmark.bookmarkId = [[[[xmlResponse rootElement] attributeForName:@"id"] stringValue] intValue];
+    [_transactionData removeObjectForKey:transactionId];
   }
   
   switch (self.state) {
@@ -121,13 +128,6 @@
         [self startHandshake];
       break;
     case SettingInitialParameters:
-      if ([_lastCommand isEqualToString:@"breakpoint_set"]) {
-        NSNumber* transactionId = [NSNumber numberWithInt:_lastTransactionId];
-        TDBookmark* bookmark = [_transactionData objectForKey:transactionId];
-        bookmark.bookmarkId = [[[[xmlResponse rootElement] attributeForName:@"id"] stringValue] intValue];
-        [_transactionData removeObjectForKey:transactionId];
-      }
-      
       if (_lastTransactionId == _waitForTag) {
         self.state = Running;
         if (_controller.firstLineBreak)
@@ -252,5 +252,14 @@
                                       page:pendingVariable.pageToLoad];
   [_transactionData setObject:pendingVariable
                        forKey:[NSNumber numberWithInt:transactionId]];
+}
+- (void)addBookmark:(TDBookmark *)bookmark {
+  NSAssert1(![bookmark bookmarkIdDetermined], @"Bookmark not determined: %@", bookmark);
+  int transactionId = [_controller session:self setLineBreakpointInFile:[NSString stringWithFormat:@"file:/%@", bookmark.source] lineNumber:bookmark.lineNumber + 1 temporary:NO enabled:YES];
+  [_transactionData setObject:bookmark forKey:[NSNumber numberWithInt:transactionId]];
+}
+- (void)removeBookmark:(TDBookmark *)bookmark {
+  NSAssert1([bookmark bookmarkIdDetermined], @"Bookmark not determined: %@", bookmark);
+  [_controller session:self removeBreakpointId:bookmark.bookmarkId];
 }
 @end
