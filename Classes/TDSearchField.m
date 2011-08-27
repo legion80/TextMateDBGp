@@ -1,8 +1,8 @@
 //
-//  MDSplitView.h
-//  MissingDrawer
+//  TDSearchField.m
+//  TextMateDBGp
 //
-//	Copyright (c) The MissingDrawer authors.
+//	Copyright (c) Jon Lee.
 //
 //	Permission is hereby granted, free of charge, to any person
 //	obtaining a copy of this software and associated documentation
@@ -26,31 +26,11 @@
 //	OTHER DEALINGS IN THE SOFTWARE.
 //
 
-@interface MDSplitView : NSSplitView {
+#import "TDSearchField.h"
+#import "TDSearchFieldCell.h"
 
-	IBOutlet id resizeSlider;
-	
-@private
-	
-    NSView *_sideView;
-    NSView *_mainView;
-	
-    BOOL _inResizeMode;
+@implementation TDSearchField
++ (Class)cellClass {
+  return [TDSearchFieldCell class];
 }
-
-@property (readonly) NSView *sideView;
-@property (readonly) NSView *mainView;
-
-// Initializer
-- (id)initWithFrame:(NSRect)frame mainView:(NSView *)aMainView sideView:(NSView *)aSideView;
-
-// Drawing
-- (void)toggleLayout;
-- (IBAction)adjustSubviews:(id)sender;
-
-// Layout
-- (void)windowWillCloseWillCall;
-- (void)saveLayout;
-- (void)restoreLayout;
-
 @end

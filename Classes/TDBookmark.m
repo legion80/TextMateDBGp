@@ -1,8 +1,8 @@
 //
-//  MDResizer.m
-//  MissingDrawer
+//  TDBookmark.m
+//  TextMateDBGp
 //
-//	Copyright (c) The MissingDrawer authors.
+//	Copyright (c) Jon Lee.
 //
 //	Permission is hereby granted, free of charge, to any person
 //	obtaining a copy of this software and associated documentation
@@ -26,19 +26,32 @@
 //	OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "MDResizer.h"
+#import "TDBookmark.h"
 
-@implementation MDResizer
+@implementation TDBookmark
+@synthesize source = _source;
+@synthesize lineNumber = _lineNumber;
+@synthesize bookmarkId = _bookmarkId;
 
-- (void)mouseDown:(NSEvent *)theEvent {
-    MDLog(@"mouseDown in sliderImage");
-    [[[self superview] superview] mouseDown:theEvent];
+- (id)init {
+  if (!(self = [super init]))
+    return nil;
+  _bookmarkId = -1;
+  return self;
+}
+- (id)copyWithZone:(NSZone *)zone {
+  TDBookmark* bookmark = [TDBookmark allocWithZone:zone];
+  bookmark.source = _source;
+  bookmark.lineNumber = _lineNumber;
+  bookmark.bookmarkId = _bookmarkId;
+  return bookmark;
+}
+- (void)dealloc {
+  self.source = nil;
+  [super dealloc];
 }
 
-
-- (void)mouseDragged:(NSEvent *)theEvent {
-    MDLog(@"mouseDragged in sliderImage");
-    [[[self superview] superview] mouseDragged:theEvent];
+- (BOOL)bookmarkIdDetermined {
+  return _bookmarkId != -1;
 }
-
 @end

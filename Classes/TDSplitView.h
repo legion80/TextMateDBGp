@@ -1,8 +1,9 @@
 //
-//  MDMissingDrawer.h
-//  MissingDrawer
+//  TDSplitView.h
+//  TextMateDBGp
 //
 //	Copyright (c) The MissingDrawer authors.
+//	Copyright (c) Jon Lee.
 //
 //	Permission is hereby granted, free of charge, to any person
 //	obtaining a copy of this software and associated documentation
@@ -26,24 +27,26 @@
 //	OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "TMPlugInController.h"
+@class TDSidebar;
 
-@class MDSplitView;
-
-@interface MDMissingDrawer : NSObject {
-
-
+@interface TDSplitView : NSSplitView <NSSplitViewDelegate> {
+@private
+  TDSidebar *_sidebar;
+  NSView *_mainView;
 }
 
-// Class Methods
-+ (NSBundle *)pluginBundle;
-+ (NSImage *)bundledImageWithName:(NSString *)imageName;
-+ (MDSplitView *)makeSplitViewWithMainView:(NSView *)contentView sideView:(NSView *)sideView;
+@property (readonly) TDSidebar *sidebar;
+@property (readonly) NSView *mainView;
 
-// Plugin hook
-- (id)initWithPlugInController:(id<TMPlugInController>)aController;
+// Initializer
+- (id)initWithFrame:(NSRect)frame mainView:(NSView *)aMainView sideView:(TDSidebar *)aSideView;
 
-// Actions
-- (void)toggleSplitViewLayout:(id)sender;
+// Drawing
+- (void)toggleLayout;
+
+// Layout
+- (void)windowWillCloseWillCall;
+- (void)saveLayout;
+- (void)restoreLayout;
 
 @end

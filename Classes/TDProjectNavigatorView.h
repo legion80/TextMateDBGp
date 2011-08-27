@@ -1,8 +1,8 @@
 //
-//  MDResizer.h
-//  MissingDrawer
+//  TDProjectNavigatorView.h
+//  TextMateDBGp
 //
-//	Copyright (c) The MissingDrawer authors.
+//	Copyright (c) Jon Lee.
 //
 //	Permission is hereby granted, free of charge, to any person
 //	obtaining a copy of this software and associated documentation
@@ -26,8 +26,36 @@
 //	OTHER DEALINGS IN THE SOFTWARE.
 //
 
-@interface MDResizer : NSImageView {
-	
+@class TDOutlineViewDataSource;
+@class TDProject;
+@class TDSearchField;
+@class TDSidebar;
+
+@interface TDProjectNavigatorView : NSView {
+@private
+  IBOutlet NSView* toolbar;
+  IBOutlet NSView* contentView;
+
+  NSMutableArray* _toolbarButtons;
+  TDSidebar* _sidebar; // weak
+  NSOutlineView* _outlineView;
+  TDOutlineViewDataSource* _outlineViewDataSource;
+  NSScrollView* _outlineScrollContainer;
+  dispatch_queue_t _filterQueue;
+  NSMutableArray *_fullOutlineViewExpandedItems;
+  TDProject* _project;
+  TDSearchField* _searchField;
 }
 
+@property (assign) NSView* toolbar;
+@property (assign) NSView* contentView;
+@property (assign) TDSidebar* sidebar;
+@property (nonatomic,retain) TDProject* project;
+@property (nonatomic,readonly) NSOutlineView* outlineView;
+@property (readonly) dispatch_queue_t filterQueue;
+
+- (void)initializeWithDrawer:(NSView*)drawerView;
+- (void)filterOutlineView:(NSNotification*)notification;
+- (void)recalculateTree;
+- (void)terminalButtonPressed:(id)sender;
 @end

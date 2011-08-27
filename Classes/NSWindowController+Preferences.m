@@ -26,7 +26,7 @@
 //
 
 #import "NSWindowController+Preferences.h"
-#import "MDMissingDrawer.h"
+#import "TextMateDBGp.h"
 #import "MDPreferenceController.h"
 
 float ToolbarHeightForWindow(NSWindow *window) {
@@ -44,7 +44,7 @@ float ToolbarHeightForWindow(NSWindow *window) {
 	return toolbarHeight;
 }
 
-static NSString* MD_PREFERENCES_LABEL = @"Missing Drawer";
+static NSString* MD_PREFERENCES_LABEL = @"TextMateDBGp";
 
 @implementation NSWindowController (MD_Preferences)
 
@@ -61,8 +61,8 @@ static NSString* MD_PREFERENCES_LABEL = @"Missing Drawer";
 }
 
 - (NSToolbarItem *)MD_toolbar:(NSToolbar*)toolbar 
-	   itemForItemIdentifier:(NSString*)itemIdentifier 
-   willBeInsertedIntoToolbar:(BOOL)flag  {
+        itemForItemIdentifier:(NSString*)itemIdentifier 
+    willBeInsertedIntoToolbar:(BOOL)flag  {
 	NSToolbarItem *item = [self MD_toolbar:toolbar itemForItemIdentifier:itemIdentifier willBeInsertedIntoToolbar:flag];
 	//  if([itemIdentifier isEqualToString:MD_PREFERENCES_LABEL])
 	//	   At some point add a picture here

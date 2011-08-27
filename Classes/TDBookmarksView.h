@@ -1,8 +1,8 @@
 //
-//  MDSidebarBorderView.h
-//  MissingDrawer
+//  TDBookmarksView.h
+//  TextMateDBGp
 //
-//	Copyright (c) The MissingDrawer authors.
+//	Copyright (c) Jon Lee.
 //
 //	Permission is hereby granted, free of charge, to any person
 //	obtaining a copy of this software and associated documentation
@@ -26,17 +26,14 @@
 //	OTHER DEALINGS IN THE SOFTWARE.
 //
 
-@interface MDSidebarBorderView : NSView {
-	
-@private
-	
-    id<NSObject> _projectFileOutlineView;
+@class TDProject;
+@interface TDBookmarksView : NSView <NSOutlineViewDataSource, NSOutlineViewDelegate> {
+  NSOutlineView* _outlineView;
+  TDProject* _project;
 }
 
-// Drawing
-- (void)addToSuperview:(NSView *)superview;
+@property (nonatomic,retain) IBOutlet NSOutlineView* outlineView;
+@property (nonatomic,retain) TDProject* project;
 
-// Actions
-- (void)terminalButtonPressed:(id)sender;
-
+- (IBAction)refreshBookmarks:(id)sender;
 @end

@@ -1,6 +1,6 @@
 //
 //  MDPreferenceController.h
-//  MissingDrawer
+//  TextMateDBGp
 //
 //	Copyright (c) The MissingDrawer authors.
 //

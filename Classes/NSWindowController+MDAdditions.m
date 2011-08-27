@@ -1,8 +1,9 @@
 //
 //  NSWindowController+MDAdditions.m
-//  MissingDrawer
+//  TextMateDBGp
 //
 //	Copyright (c) The MissingDrawer authors.
+//	Copyright (c) Jon Lee.
 //
 //	Permission is hereby granted, free of charge, to any person
 //	obtaining a copy of this software and associated documentation
@@ -27,79 +28,118 @@
 //
 
 #import "NSWindowController+MDAdditions.h"
-#import "MDMissingDrawer.h"
-#import "MDSplitView.h"
-#import "MDSidebarBorderView.h"
+
+#import "TextMateDBGp.h"
+#import "TDBookmarksView.h"
+#import "TDProject.h"
+#import "TDProjectNavigatorView.h"
+#import "TDSidebar.h"
+#import "TDSplitView.h"
+
+@implementation TDTemporaryOwner
+- (void)dealloc {
+  [sidebar release];
+  [super dealloc];
+}
+@end
 
 @implementation NSWindowController (MDAdditions)
 
 - (void)MD_splitWindowIfNeeded {
-	NSWindow *window = [(NSWindowController *)self window];
-	if (window) {
-		NSView *contentView = [window contentView];
-		
-		if (contentView && ![contentView isKindOfClass:[MDSplitView class]]) {
-			// If a drawer is displayed by TextMate, replace the contentView
-			// with one that uses the MissingDrawer.
-			NSDrawer *drawer = [[window drawers] objectAtIndex:0];
-			if (drawer)	{
-				[drawer close]; // does no harm if the drawer is already closed
-
-				NSView *leftView = [[drawer contentView] retain];
-				[drawer setContentView:nil];
-				[window setContentView:nil];
-			
-				MDSidebarBorderView *borderView = [[MDSidebarBorderView alloc] initWithFrame:[leftView frame]];
-				[borderView addToSuperview:leftView];
-			
-				MDSplitView *splitView = [MDMissingDrawer makeSplitViewWithMainView:contentView sideView:leftView];
-				MDLog(@"replacing current window with split view");
-				[window setContentView:splitView];
-			
-				[borderView release];
-				[leftView release];
-				[splitView restoreLayout];
-			}
-		}
-	}
+	NSWindow *window = [self window];
+	if (!window)
+    return;
+  
+  NSView *contentView = [window contentView];  
+  if (!contentView || [contentView isKindOfClass:[TDSplitView class]])
+    return;
+  
+  // If a drawer is displayed by TextMate, replace the contentView
+  // with one that uses the MissingDrawer.
+  NSDrawer *drawer = [[window drawers] objectAtIndex:0];
+  if (!drawer)
+    return;
+  
+  NSView *drawerView = [[drawer contentView] retain];
+  [contentView retain];
+  [drawer setContentView:nil];
+  [window setContentView:nil];
+  
+  TDTemporaryOwner* owner = [[TDTemporaryOwner alloc] init];
+  [NSBundle loadNibNamed:@"TDSidebar" owner:owner];
+  [owner->sidebar.navigatorView initializeWithDrawer:drawerView];
+  
+  TDSplitView *splitView = [TextMateDBGp makeSplitViewWithMainView:contentView sideView:owner->sidebar];
+  
+  [window setContentView:splitView];
+  
+  [drawerView release];
+  [contentView release];
+  [splitView restoreLayout];
+  
+  [owner->sidebar selectView:0];
+  [owner release];
+  
+  [drawer close]; // does no harm if the drawer is already closed
 }
-
-
-- (NSOutlineView *)MD_outlineView {
-	MDSplitView *contentView = (MDSplitView *)[[(NSWindowController *)self window] contentView];
-	NSScrollView *scrollView = [[contentView.sideView subviews] objectAtIndex:0];
-	NSClipView *clipView = [[scrollView subviews] objectAtIndex:0];
-	return [[clipView subviews] lastObject];
-}
-
 
 - (void)MD_windowDidBecomeMain:(NSNotification *)notification {
 	NSDictionary *bindingOptions = [[NSDictionary alloc] initWithObjectsAndKeys:
-									NSUnarchiveFromDataTransformerName, @"NSValueTransformerName", nil];
+                                  NSUnarchiveFromDataTransformerName, @"NSValueTransformerName", nil];
 	NSString *keyPath = [[NSString alloc] initWithFormat:@"values.%@", kMDSidebarBackgroundColorActiveKey];
 	
-	[[self MD_outlineView] bind:@"backgroundColor"
-					   toObject:[NSUserDefaultsController sharedUserDefaultsController]
-					withKeyPath:keyPath
-						options:bindingOptions];
+  
+	TDSidebar *sidebar = [(TDSplitView *)[[(NSWindowController *)self window] contentView] sidebar];
+  NSOutlineView* navigationOutlineView = sidebar.navigatorView.outlineView;  
+  NSOutlineView* bookmarkOutlineView = sidebar.bookmarksView.outlineView;
+  
+	[navigationOutlineView bind:@"backgroundColor"
+                     toObject:[NSUserDefaultsController sharedUserDefaultsController]
+                  withKeyPath:keyPath
+                      options:bindingOptions];
+  [bookmarkOutlineView bind:@"backgroundColor"
+                   toObject:[NSUserDefaultsController sharedUserDefaultsController]
+                withKeyPath:keyPath
+                    options:bindingOptions];
+  [sidebar.debugView bind:@"backgroundColor"
+                 toObject:[NSUserDefaultsController sharedUserDefaultsController]
+              withKeyPath:keyPath
+                  options:bindingOptions];
 	
 	[bindingOptions release];
 	[keyPath release];
+  
+  [bookmarkOutlineView beginUpdates];
+  [sidebar.project gatherBookmarks];
+  [bookmarkOutlineView endUpdates];
+  [bookmarkOutlineView reloadData];
+  [bookmarkOutlineView expandItem:nil expandChildren:YES];
 }
 
 
 - (void)MD_windowDidResignMain:(NSNotification *)notification {
 	NSDictionary *bindingOptions = [[NSDictionary alloc] initWithObjectsAndKeys:
-									NSUnarchiveFromDataTransformerName, @"NSValueTransformerName", nil];
+                                  NSUnarchiveFromDataTransformerName, @"NSValueTransformerName", nil];
 	NSString *keyPath = [[NSString alloc] initWithFormat:@"values.%@", kMDSidebarBackgroundColorIdleKey];
 	
-	[[self MD_outlineView] bind:@"backgroundColor"
-					   toObject:[NSUserDefaultsController sharedUserDefaultsController]
-					withKeyPath:keyPath
-						options:bindingOptions];
+	TDSidebar *sidebar = [(TDSplitView *)[[(NSWindowController *)self window] contentView] sidebar];
+  NSOutlineView* navigationOutlineView = sidebar.navigatorView.outlineView;  
+	[navigationOutlineView bind:@"backgroundColor"
+                     toObject:[NSUserDefaultsController sharedUserDefaultsController]
+                  withKeyPath:keyPath
+                      options:bindingOptions];
+  [sidebar.bookmarksView.outlineView bind:@"backgroundColor"
+                                 toObject:[NSUserDefaultsController sharedUserDefaultsController]
+                              withKeyPath:keyPath
+                                  options:bindingOptions];
+  [sidebar.debugView bind:@"backgroundColor"
+                 toObject:[NSUserDefaultsController sharedUserDefaultsController]
+              withKeyPath:keyPath
+                  options:bindingOptions];
 	
 	[bindingOptions release];
 	[keyPath release];
 }
 
 @end
+

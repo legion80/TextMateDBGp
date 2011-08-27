@@ -1,6 +1,6 @@
 //
 //  MDPreferenceController.m
-//  MissingDrawer
+//  TextMateDBGp
 //
 //	Copyright (c) The MissingDrawer authors.
 //
@@ -64,7 +64,7 @@ static MDPreferenceController *sharedInstance = nil;
 	NSBundle *pluginBundle = [NSBundle bundleForClass:[self class]];
 	NSString *version = [[pluginBundle infoDictionary] objectForKey:@"CFBundleVersion"];
 	
-	NSString *string = [[NSString alloc] initWithFormat:@"Missing Drawer %@", version];
+	NSString *string = [[NSString alloc] initWithFormat:@"TextMateDBGp %@", version];
 	[versionTextField setStringValue:string];
 	[string release];
 }

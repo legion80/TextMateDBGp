@@ -1,8 +1,9 @@
 //
-//  MDMissingDrawer.m
-//  MissingDrawer
+//  TextMateDBGp.m
+//  TextMateDBGp
 //
 //	Copyright (c) The MissingDrawer authors.
+//	Copyright (c) Jon Lee.
 //
 //	Permission is hereby granted, free of charge, to any person
 //	obtaining a copy of this software and associated documentation
@@ -26,28 +27,41 @@
 //	OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "MDMissingDrawer.h"
-#import "MDSplitView.h"
-#import "MDSidebarBorderView.h"
+#import "TextMateDBGp.h"
+
 #import "MDSettings.h"
-#import "NSWindowController+MDMethodReplacements.h"
 #import "NSWindowController+MDAdditions.h"
-#import <objc/objc-runtime.h>
+#import "NSWindowController+MDMethodReplacements.h"
+#import "JRSwizzle.h"
+#import "TDSplitView.h"
 
-void swapInstanceMethods(Class cls, SEL originalSel, SEL newSel) {
-    Method originalMethod = class_getInstanceMethod(cls, originalSel);
-    Method newMethod = class_getInstanceMethod(cls, newSel);
-    method_exchangeImplementations(originalMethod, newMethod);
-}
-
-
-@interface MDMissingDrawer (PrivateMethods)
+@interface TextMateDBGp (PrivateMethods)
 - (void)_injectPluginMethods;
 - (void)_installMenuItems;
 - (void)_injectPreferenceMethods;
 @end
 
-@implementation MDMissingDrawer
+
+@implementation TextMateDBGp
+
++ (void)load {
+  // Setup defaults
+  NSColor *activeColor = [NSColor colorWithCalibratedRed:0.867f green:0.894f blue:0.918f alpha:1.0f];
+  NSColor *idleColor = [NSColor colorWithCalibratedRed:0.929f green:0.929f blue:0.929f alpha:1.0f];
+  NSDictionary *defaults = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            [NSKeyedArchiver archivedDataWithRootObject:activeColor], kMDSidebarBackgroundColorActiveKey,
+                            [NSKeyedArchiver archivedDataWithRootObject:idleColor], kMDSidebarBackgroundColorIdleKey,
+                            nil];
+  
+  [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+  [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:defaults];
+  [defaults release];
+  
+  [OakProjectController jr_swizzleMethod:@selector(windowDidLoad) withMethod:@selector(MD_repl_windowDidLoad) error:NULL];
+  [OakProjectController jr_swizzleMethod:@selector(windowWillClose:) withMethod:@selector(MD_repl_windowWillClose:) error:NULL];
+  [OakProjectController jr_swizzleMethod:@selector(openProjectDrawer:) withMethod:@selector(MD_repl_openProjectDrawer:) error:NULL];
+  [OakProjectController jr_swizzleMethod:@selector(revealInProject:) withMethod:@selector(MD_repl_revealInProject:) error:NULL];
+}
 
 #pragma mark Class Methods
 
@@ -62,11 +76,10 @@ void swapInstanceMethods(Class cls, SEL originalSel, SEL newSel) {
 }
 
 
-+ (MDSplitView *)makeSplitViewWithMainView:(NSView *)contentView sideView:(NSView *)sideView {
++ (TDSplitView *)makeSplitViewWithMainView:(NSView *)contentView sideView:(TDSidebar *)sideView {
 	MDLog();
-    MDSplitView *splitView = [[MDSplitView alloc] initWithFrame:[contentView frame] mainView:contentView sideView:sideView];
-    [splitView setVertical:YES];
-    return [splitView autorelease];
+  TDSplitView *splitView = [[TDSplitView alloc] initWithFrame:[contentView frame] mainView:contentView sideView:sideView];
+  return [splitView autorelease];
 }
 
 
@@ -76,25 +89,12 @@ void swapInstanceMethods(Class cls, SEL originalSel, SEL newSel) {
 	if (self = [super init]) {
 		MDLog(@"initializing 'MissingDrawer' plugin");
 		
-		// Setup defaults
-		NSColor *activeColor = [NSColor colorWithCalibratedRed:0.867f green:0.894f blue:0.918f alpha:1.0f];
-		NSColor *idleColor = [NSColor colorWithCalibratedRed:0.929f green:0.929f blue:0.929f alpha:1.0f];
-		NSDictionary *defaults = [[NSDictionary alloc] initWithObjectsAndKeys:
-								  [NSKeyedArchiver archivedDataWithRootObject:activeColor], kMDSidebarBackgroundColorActiveKey,
-								  [NSKeyedArchiver archivedDataWithRootObject:idleColor], kMDSidebarBackgroundColorIdleKey,
-								  nil];
-		
-		[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
-		[[NSUserDefaultsController sharedUserDefaultsController] setInitialValues:defaults];
-		[defaults release];
-		
-        [self _injectPluginMethods];
 		[[[NSApp mainWindow] windowController] MD_splitWindowIfNeeded];
 		[[[NSApp mainWindow] windowController] MD_windowDidBecomeMain:nil];
 		[self _installMenuItems];
 		[self _injectPreferenceMethods];
-    }	
-    return self;
+  }	
+  return self;
 }
 
 
@@ -128,6 +128,7 @@ void swapInstanceMethods(Class cls, SEL originalSel, SEL newSel) {
 	[drawerSubmenuItem setSubmenu:drawerMenu];
 	[drawerMenu addItem:settings.toggleSplitViewLayoutMenuItem];
 	[drawerMenu addItem:settings.focusSideViewMenuItem];
+  [drawerMenu addItem:settings.filterInDrawerMenuItem];
 	[showHideDrawerMenuItem retain];
 	[viewMenu removeItemAtIndex:drawerMenuItemIndex];
 	[drawerMenu insertItem:showHideDrawerMenuItem atIndex:0];
@@ -139,27 +140,15 @@ void swapInstanceMethods(Class cls, SEL originalSel, SEL newSel) {
 }
 
 
-- (void)_injectPluginMethods {
-	MDLog(@"swapping OakProjectController methods");
-	
-    Class oakProjectController = NSClassFromString(@"OakProjectController");
-    swapInstanceMethods(oakProjectController, @selector(windowDidLoad),      @selector(MD_repl_windowDidLoad));
-    swapInstanceMethods(oakProjectController, @selector(windowWillClose:),   @selector(MD_repl_windowWillClose:));
-    swapInstanceMethods(oakProjectController, @selector(openProjectDrawer:), @selector(MD_repl_openProjectDrawer:));
-    swapInstanceMethods(oakProjectController, @selector(revealInProject:),   @selector(MD_repl_revealInProject:));
-}
-
 - (void)_injectPreferenceMethods {
 	MDLog("swapping OakPreferencesManager methods");
 	
-	Class oakPreferenceController = NSClassFromString(@"OakPreferencesManager");
-	swapInstanceMethods(oakPreferenceController, @selector(toolbarAllowedItemIdentifiers:),		@selector(MD_toolbarAllowedItemIdentifiers:));
-	swapInstanceMethods(oakPreferenceController, @selector(toolbarDefaultItemIdentifiers:),		@selector(MD_toolbarDefaultItemIdentifiers:));
-	swapInstanceMethods(oakPreferenceController, @selector(toolbarSelectableItemIdentifiers:),  @selector(MD_toolbarSelectableItemIdentifiers:));
-	swapInstanceMethods(oakPreferenceController, @selector(selectToolbarItem:),					@selector(MD_selectToolbarItem:));
-	
-	swapInstanceMethods(oakPreferenceController, @selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:),   
-												 @selector(MD_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:));
+  NSError* error;
+  [OakPreferencesManager jr_swizzleMethod:@selector(toolbarAllowedItemIdentifiers:) withMethod:@selector(MD_toolbarAllowedItemIdentifiers:) error:&error];
+  [OakPreferencesManager jr_swizzleMethod:@selector(toolbarDefaultItemIdentifiers:) withMethod:@selector(MD_toolbarDefaultItemIdentifiers:) error:&error];
+  [OakPreferencesManager jr_swizzleMethod:@selector(toolbarSelectableItemIdentifiers:) withMethod:@selector(MD_toolbarSelectableItemIdentifiers:) error:&error];
+  [OakPreferencesManager jr_swizzleMethod:@selector(selectToolbarItem:) withMethod:@selector(MD_selectToolbarItem:) error:&error];
+  [OakPreferencesManager jr_swizzleMethod:@selector(toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) withMethod:@selector(MD_toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:) error:&error];
 }
 
 @end

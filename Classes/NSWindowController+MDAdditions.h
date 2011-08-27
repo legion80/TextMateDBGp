@@ -1,6 +1,6 @@
 //
 //  NSWindowController+MDAdditions.h
-//  MissingDrawer
+//  TextMateDBGp
 //
 //	Copyright (c) The MissingDrawer authors.
 //
@@ -29,8 +29,14 @@
 @interface NSWindowController (MDAdditions)
 
 - (void)MD_splitWindowIfNeeded;
-- (NSOutlineView *)MD_outlineView;
 - (void)MD_windowDidBecomeMain:(NSNotification *)notification;
 - (void)MD_windowDidResignMain:(NSNotification *)notification;
 
+@end
+
+@class TDSidebar;
+@interface TDTemporaryOwner : NSObject {
+@public
+  IBOutlet TDSidebar* sidebar;
+}
 @end

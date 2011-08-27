@@ -1,0 +1,795 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		093EFCA712AFEF0E00D8A18C /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 093EFCA512AFEF0E00D8A18C /* Preferences.xib */; };
+		093EFCAF12AFF0EA00D8A18C /* NSWindowController+Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 093EFCAE12AFF0EA00D8A18C /* NSWindowController+Preferences.m */; };
+		097A211712B115F300614549 /* MDPreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 097A211612B115F300614549 /* MDPreferenceController.m */; };
+		17A67ED81220168000BECE6F /* defaultSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17A67ED71220168000BECE6F /* defaultSettings.plist */; };
+		31069B401404AD7B00A1010F /* BookmarkRefresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 31069B3E1404AD7B00A1010F /* BookmarkRefresh.png */; };
+		31069B481404D8E700A1010F /* TDBookmarkFileCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31069B471404D8E700A1010F /* TDBookmarkFileCellView.m */; };
+		31069B4B1404DEF500A1010F /* BookmarkFileBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 31069B491404DEF500A1010F /* BookmarkFileBackground.png */; };
+		3116EF1513EFC92300B45E3B /* ToolbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3116EF1313EFC92300B45E3B /* ToolbarBackground.png */; };
+		3116EF1913EFC94100B45E3B /* TDSidebarToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3116EF1813EFC94100B45E3B /* TDSidebarToolbar.m */; };
+		3116EF2213EFCD5300B45E3B /* ToolbarDebug.png in Resources */ = {isa = PBXBuildFile; fileRef = 3116EF1A13EFCD5300B45E3B /* ToolbarDebug.png */; };
+		3116EF2313EFCD5300B45E3B /* ToolbarDebugHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 3116EF1C13EFCD5300B45E3B /* ToolbarDebugHighlighted.png */; };
+		3116EF2413EFCD5300B45E3B /* ToolbarNavigator.png in Resources */ = {isa = PBXBuildFile; fileRef = 3116EF1E13EFCD5300B45E3B /* ToolbarNavigator.png */; };
+		3116EF2513EFCD5300B45E3B /* ToolbarNavigatorHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 3116EF2013EFCD5300B45E3B /* ToolbarNavigatorHighlighted.png */; };
+		3116EF2813EFD44900B45E3B /* TDDebugView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3116EF2713EFD44900B45E3B /* TDDebugView.m */; };
+		3116EF2D13F0BF5500B45E3B /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 3116EF2C13F0BF5500B45E3B /* JRSwizzle.m */; };
+		31551B6813FE259C00B56841 /* TDStackFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 31551B6713FE259C00B56841 /* TDStackFrame.m */; };
+		31551B6D13FF67B600B56841 /* TDStackVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 31551B6C13FF67B600B56841 /* TDStackVariable.m */; };
+		31551B7013FF68E000B56841 /* TDStackContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 31551B6F13FF68E000B56841 /* TDStackContext.m */; };
+		31551B7313FFACBE00B56841 /* TDPlaceholderVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 31551B7213FFACBE00B56841 /* TDPlaceholderVariable.m */; };
+		31551B761400CE9B00B56841 /* DebugBookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 31551B741400CE9B00B56841 /* DebugBookmark.png */; };
+		31551B791401FB5C00B56841 /* TDBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 31551B781401FB5C00B56841 /* TDBookmark.m */; };
+		317029EB13F9F1DE009CBDD2 /* TDDebugView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317029EA13F9F1DE009CBDD2 /* TDDebugView.xib */; };
+		317029EE13FA65E6009CBDD2 /* TDNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 317029ED13FA65E6009CBDD2 /* TDNetworkController.m */; };
+		317029F113FA6941009CBDD2 /* TDDebugSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 317029F013FA6941009CBDD2 /* TDDebugSession.m */; };
+		3173DA5413EDC5F700C009E7 /* TDOutlineViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3173DA5313EDC5F700C009E7 /* TDOutlineViewDataSource.m */; };
+		317C2C2413F261BE0071E1C2 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 317C2C2313F261BE0071E1C2 /* GCDAsyncSocket.m */; };
+		317C2C2B13F2F1980071E1C2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 317C2C2A13F2F1970071E1C2 /* Security.framework */; };
+		317C2C3813F33D6A0071E1C2 /* DebugBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 317C2C2C13F33D6A0071E1C2 /* DebugBackground.png */; };
+		317C2C3913F33D6A0071E1C2 /* DebugPause.png in Resources */ = {isa = PBXBuildFile; fileRef = 317C2C2E13F33D6A0071E1C2 /* DebugPause.png */; };
+		317C2C3A13F33D6A0071E1C2 /* DebugPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 317C2C3013F33D6A0071E1C2 /* DebugPlay.png */; };
+		317C2C3B13F33D6A0071E1C2 /* DebugStepIn.png in Resources */ = {isa = PBXBuildFile; fileRef = 317C2C3213F33D6A0071E1C2 /* DebugStepIn.png */; };
+		317C2C3C13F33D6A0071E1C2 /* DebugStepOut.png in Resources */ = {isa = PBXBuildFile; fileRef = 317C2C3413F33D6A0071E1C2 /* DebugStepOut.png */; };
+		317C2C3D13F33D6A0071E1C2 /* DebugStepOver.png in Resources */ = {isa = PBXBuildFile; fileRef = 317C2C3613F33D6A0071E1C2 /* DebugStepOver.png */; };
+		317C2C4513F395530071E1C2 /* ToolbarBookmarks.png in Resources */ = {isa = PBXBuildFile; fileRef = 317C2C4113F395530071E1C2 /* ToolbarBookmarks.png */; };
+		317C2C4613F395530071E1C2 /* ToolbarBookmarksHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 317C2C4313F395530071E1C2 /* ToolbarBookmarksHighlighted.png */; };
+		317C2C4A13F3959B0071E1C2 /* TDBookmarksView.m in Sources */ = {isa = PBXBuildFile; fileRef = 317C2C4913F3959B0071E1C2 /* TDBookmarksView.m */; };
+		31ACF7E113EFB278003D2096 /* TDSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ACF7E013EFB277003D2096 /* TDSidebar.m */; };
+		31ACF7E513EFB55C003D2096 /* TDProjectNavigatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ACF7E413EFB55C003D2096 /* TDProjectNavigatorView.m */; };
+		31B0269513EE9AA300B235B4 /* FilterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B0269313EE9AA300B235B4 /* FilterIcon.png */; };
+		31B0269B13EE9FA700B235B4 /* TDSearchFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B0269A13EE9FA700B235B4 /* TDSearchFieldCell.m */; };
+		31B0269E13EEA05200B235B4 /* TDSearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B0269D13EEA05200B235B4 /* TDSearchField.m */; };
+		31C38F6F13F43323007B7AB3 /* TDProject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 31C38F6E13F43323007B7AB3 /* TDProject.mm */; };
+		31C38F7113F4C2EC007B7AB3 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 31C38F7013F4C2EC007B7AB3 /* libz.dylib */; };
+		31C38F8013F604B8007B7AB3 /* TDBookmarksView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31C38F7F13F604B8007B7AB3 /* TDBookmarksView.xib */; };
+		31D5F1031406B5270030DAA9 /* TDSidebar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31D5F1021406B5250030DAA9 /* TDSidebar.xib */; };
+		31D5F105140782590030DAA9 /* TDProjectNavigatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31D5F104140782580030DAA9 /* TDProjectNavigatorView.xib */; };
+		31FC3AD21405E700005083C1 /* TDDebugStackFrameCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31FC3AD11405E700005083C1 /* TDDebugStackFrameCellView.m */; };
+		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		B21734D813916D0200299F09 /* MDDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = B21734D713916D0200299F09 /* MDDefines.m */; };
+		B21734EF13916FBD00299F09 /* ButtonTerminal.png in Resources */ = {isa = PBXBuildFile; fileRef = B21734E913916FBD00299F09 /* ButtonTerminal.png */; };
+		B21734F013916FBD00299F09 /* ButtonTerminalPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = B21734EB13916FBD00299F09 /* ButtonTerminalPressed.png */; };
+		B2B89112121CD28E00AC78F1 /* TextMateDBGp.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B890FC121CD28D00AC78F1 /* TextMateDBGp.m */; };
+		B2B89114121CD28E00AC78F1 /* MDSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B89100121CD28D00AC78F1 /* MDSettings.m */; };
+		B2B89116121CD28E00AC78F1 /* TDSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B89104121CD28D00AC78F1 /* TDSplitView.m */; };
+		B2B89117121CD28E00AC78F1 /* DrawerBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B89107121CD28D00AC78F1 /* DrawerBorder.png */; };
+		B2B89118121CD28E00AC78F1 /* DrawerResizeHandle.png in Resources */ = {isa = PBXBuildFile; fileRef = B2B89109121CD28D00AC78F1 /* DrawerResizeHandle.png */; };
+		B2B89194121CDA1A00AC78F1 /* NSWindowController+MDMethodReplacements.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B89193121CDA1A00AC78F1 /* NSWindowController+MDMethodReplacements.m */; };
+		B2B89197121CDA5800AC78F1 /* NSWindowController+MDAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B89196121CDA5800AC78F1 /* NSWindowController+MDAdditions.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		093EFCA612AFEF0E00D8A18C /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
+		093EFCAD12AFF0EA00D8A18C /* NSWindowController+Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindowController+Preferences.h"; sourceTree = "<group>"; };
+		093EFCAE12AFF0EA00D8A18C /* NSWindowController+Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindowController+Preferences.m"; sourceTree = "<group>"; };
+		097A211512B115F300614549 /* MDPreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDPreferenceController.h; sourceTree = "<group>"; };
+		097A211612B115F300614549 /* MDPreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDPreferenceController.m; sourceTree = "<group>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		17A67ED71220168000BECE6F /* defaultSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = defaultSettings.plist; sourceTree = "<group>"; };
+		31069B3F1404AD7B00A1010F /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/BookmarkRefresh.png; sourceTree = "<group>"; };
+		31069B461404D8E700A1010F /* TDBookmarkFileCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDBookmarkFileCellView.h; sourceTree = "<group>"; };
+		31069B471404D8E700A1010F /* TDBookmarkFileCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBookmarkFileCellView.m; sourceTree = "<group>"; };
+		31069B4A1404DEF500A1010F /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/BookmarkFileBackground.png; sourceTree = "<group>"; };
+		3116EF1413EFC92300B45E3B /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarBackground.png; sourceTree = "<group>"; };
+		3116EF1713EFC94100B45E3B /* TDSidebarToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDSidebarToolbar.h; sourceTree = "<group>"; };
+		3116EF1813EFC94100B45E3B /* TDSidebarToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSidebarToolbar.m; sourceTree = "<group>"; };
+		3116EF1B13EFCD5300B45E3B /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarDebug.png; sourceTree = "<group>"; };
+		3116EF1D13EFCD5300B45E3B /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarDebugHighlighted.png; sourceTree = "<group>"; };
+		3116EF1F13EFCD5300B45E3B /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarNavigator.png; sourceTree = "<group>"; };
+		3116EF2113EFCD5300B45E3B /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarNavigatorHighlighted.png; sourceTree = "<group>"; };
+		3116EF2613EFD44900B45E3B /* TDDebugView.h */ = {isa = PBXFileReference; fileEncoding = 4; lineEnding = 0; path = TDDebugView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		3116EF2713EFD44900B45E3B /* TDDebugView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDebugView.m; sourceTree = "<group>"; };
+		3116EF2B13F0BF5500B45E3B /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JRSwizzle.h; path = ThirdParty/jrswizzle/JRSwizzle.h; sourceTree = SOURCE_ROOT; };
+		3116EF2C13F0BF5500B45E3B /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JRSwizzle.m; path = ThirdParty/jrswizzle/JRSwizzle.m; sourceTree = SOURCE_ROOT; };
+		31551B6613FE259C00B56841 /* TDStackFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDStackFrame.h; sourceTree = "<group>"; };
+		31551B6713FE259C00B56841 /* TDStackFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStackFrame.m; sourceTree = "<group>"; };
+		31551B6B13FF67B600B56841 /* TDStackVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDStackVariable.h; sourceTree = "<group>"; };
+		31551B6C13FF67B600B56841 /* TDStackVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStackVariable.m; sourceTree = "<group>"; };
+		31551B6E13FF68E000B56841 /* TDStackContext.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDStackContext.h; sourceTree = "<group>"; };
+		31551B6F13FF68E000B56841 /* TDStackContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStackContext.m; sourceTree = "<group>"; };
+		31551B7113FFACBD00B56841 /* TDPlaceholderVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDPlaceholderVariable.h; sourceTree = "<group>"; };
+		31551B7213FFACBE00B56841 /* TDPlaceholderVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDPlaceholderVariable.m; sourceTree = "<group>"; };
+		31551B751400CE9B00B56841 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/DebugBookmark.png; sourceTree = "<group>"; };
+		31551B771401FB5B00B56841 /* TDBookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDBookmark.h; sourceTree = "<group>"; };
+		31551B781401FB5C00B56841 /* TDBookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBookmark.m; sourceTree = "<group>"; };
+		317029EA13F9F1DE009CBDD2 /* TDDebugView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDDebugView.xib; sourceTree = "<group>"; };
+		317029EC13FA65E6009CBDD2 /* TDNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDNetworkController.h; sourceTree = "<group>"; };
+		317029ED13FA65E6009CBDD2 /* TDNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNetworkController.m; sourceTree = "<group>"; };
+		317029EF13FA6941009CBDD2 /* TDDebugSession.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDDebugSession.h; sourceTree = "<group>"; };
+		317029F013FA6941009CBDD2 /* TDDebugSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TDDebugSession.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3173DA5213EDC5F700C009E7 /* TDOutlineViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDOutlineViewDataSource.h; sourceTree = "<group>"; };
+		3173DA5313EDC5F700C009E7 /* TDOutlineViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDOutlineViewDataSource.m; sourceTree = "<group>"; };
+		317C2C2213F261BE0071E1C2 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = GCDAsyncSocket.h; path = ThirdParty/cocoaasyncsocket/GCD/GCDAsyncSocket.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		317C2C2313F261BE0071E1C2 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = ThirdParty/cocoaasyncsocket/GCD/GCDAsyncSocket.m; sourceTree = SOURCE_ROOT; };
+		317C2C2A13F2F1970071E1C2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		317C2C2D13F33D6A0071E1C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/DebugBackground.png; sourceTree = "<group>"; };
+		317C2C2F13F33D6A0071E1C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/DebugPause.png; sourceTree = "<group>"; };
+		317C2C3113F33D6A0071E1C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/DebugPlay.png; sourceTree = "<group>"; };
+		317C2C3313F33D6A0071E1C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/DebugStepIn.png; sourceTree = "<group>"; };
+		317C2C3513F33D6A0071E1C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/DebugStepOut.png; sourceTree = "<group>"; };
+		317C2C3713F33D6A0071E1C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/DebugStepOver.png; sourceTree = "<group>"; };
+		317C2C4213F395530071E1C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarBookmarks.png; sourceTree = "<group>"; };
+		317C2C4413F395530071E1C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarBookmarksHighlighted.png; sourceTree = "<group>"; };
+		317C2C4813F3959B0071E1C2 /* TDBookmarksView.h */ = {isa = PBXFileReference; fileEncoding = 4; lineEnding = 0; path = TDBookmarksView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		317C2C4913F3959B0071E1C2 /* TDBookmarksView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TDBookmarksView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		31ACF7DF13EFB277003D2096 /* TDSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDSidebar.h; sourceTree = "<group>"; };
+		31ACF7E013EFB277003D2096 /* TDSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSidebar.m; sourceTree = "<group>"; };
+		31ACF7E313EFB55C003D2096 /* TDProjectNavigatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDProjectNavigatorView.h; sourceTree = "<group>"; };
+		31ACF7E413EFB55C003D2096 /* TDProjectNavigatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDProjectNavigatorView.m; sourceTree = "<group>"; };
+		31B0269413EE9AA300B235B4 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/FilterIcon.png; sourceTree = "<group>"; };
+		31B0269913EE9FA700B235B4 /* TDSearchFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDSearchFieldCell.h; sourceTree = "<group>"; };
+		31B0269A13EE9FA700B235B4 /* TDSearchFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSearchFieldCell.m; sourceTree = "<group>"; };
+		31B0269C13EEA05200B235B4 /* TDSearchField.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDSearchField.h; sourceTree = "<group>"; };
+		31B0269D13EEA05200B235B4 /* TDSearchField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSearchField.m; sourceTree = "<group>"; };
+		31C38F6D13F43323007B7AB3 /* TDProject.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDProject.h; sourceTree = "<group>"; };
+		31C38F6E13F43323007B7AB3 /* TDProject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TDProject.mm; sourceTree = "<group>"; };
+		31C38F7013F4C2EC007B7AB3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		31C38F7F13F604B8007B7AB3 /* TDBookmarksView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDBookmarksView.xib; sourceTree = "<group>"; };
+		31D5F1021406B5250030DAA9 /* TDSidebar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDSidebar.xib; sourceTree = "<group>"; };
+		31D5F104140782580030DAA9 /* TDProjectNavigatorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDProjectNavigatorView.xib; sourceTree = "<group>"; };
+		31FC3AD01405E700005083C1 /* TDDebugStackFrameCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDDebugStackFrameCellView.h; sourceTree = "<group>"; };
+		31FC3AD11405E700005083C1 /* TDDebugStackFrameCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDebugStackFrameCellView.m; sourceTree = "<group>"; };
+		8D5B49B6048680CD000E48DA /* TextMateDBGp.tmplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TextMateDBGp.tmplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		B21734D613916D0200299F09 /* MDDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MDDefines.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		B21734D713916D0200299F09 /* MDDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDDefines.m; sourceTree = "<group>"; };
+		B21734EA13916FBD00299F09 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ButtonTerminal.png; sourceTree = "<group>"; };
+		B21734EC13916FBD00299F09 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ButtonTerminalPressed.png; sourceTree = "<group>"; };
+		B2B890FB121CD28D00AC78F1 /* TextMateDBGp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMateDBGp.h; sourceTree = "<group>"; };
+		B2B890FC121CD28D00AC78F1 /* TextMateDBGp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMateDBGp.m; sourceTree = "<group>"; };
+		B2B890FF121CD28D00AC78F1 /* MDSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDSettings.h; sourceTree = "<group>"; };
+		B2B89100121CD28D00AC78F1 /* MDSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDSettings.m; sourceTree = "<group>"; };
+		B2B89103121CD28D00AC78F1 /* TDSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = TDSplitView.h; sourceTree = "<group>"; };
+		B2B89104121CD28D00AC78F1 /* TDSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSplitView.m; sourceTree = "<group>"; };
+		B2B89108121CD28D00AC78F1 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/DrawerBorder.png; sourceTree = "<group>"; };
+		B2B8910A121CD28D00AC78F1 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/DrawerResizeHandle.png; sourceTree = "<group>"; };
+		B2B89111121CD28E00AC78F1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B2B89128121CD2B800AC78F1 /* TextMateDBGp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; path = TextMateDBGp_Prefix.pch; sourceTree = "<group>"; };
+		B2B89134121CD38D00AC78F1 /* TMPlugInController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMPlugInController.h; sourceTree = "<group>"; };
+		B2B89192121CDA1A00AC78F1 /* NSWindowController+MDMethodReplacements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindowController+MDMethodReplacements.h"; sourceTree = "<group>"; };
+		B2B89193121CDA1A00AC78F1 /* NSWindowController+MDMethodReplacements.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindowController+MDMethodReplacements.m"; sourceTree = "<group>"; };
+		B2B89195121CDA5800AC78F1 /* NSWindowController+MDAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindowController+MDAdditions.h"; sourceTree = "<group>"; };
+		B2B89196121CDA5800AC78F1 /* NSWindowController+MDAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "NSWindowController+MDAdditions.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		B2B891DD121CDCAA00AC78F1 /* MDDebugUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDDebugUtils.h; sourceTree = "<group>"; };
+		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D5B49B3048680CD000E48DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31C38F7113F4C2EC007B7AB3 /* libz.dylib in Frameworks */,
+				317C2C2B13F2F1980071E1C2 /* Security.framework in Frameworks */,
+				8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* MissingDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				B2B890F9121CD28D00AC78F1 /* Classes */,
+				B2B89106121CD28D00AC78F1 /* Resources */,
+				B2B89127121CD2B800AC78F1 /* Other Sources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+			);
+			name = MissingDrawer;
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				089C167FFE841241C02AAC07 /* AppKit.framework */,
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+				D2F7E65807B2D6F200F64583 /* CoreData.framework */,
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+				317C2C2A13F2F1970071E1C2 /* Security.framework */,
+				31C38F7013F4C2EC007B7AB3 /* libz.dylib */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D5B49B6048680CD000E48DA /* TextMateDBGp.tmplugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3116EF2A13F0BF4100B45E3B /* jrswizzle */ = {
+			isa = PBXGroup;
+			children = (
+				3116EF2B13F0BF5500B45E3B /* JRSwizzle.h */,
+				3116EF2C13F0BF5500B45E3B /* JRSwizzle.m */,
+			);
+			name = jrswizzle;
+			sourceTree = "<group>";
+		};
+		31551B6A13FF673C00B56841 /* Programming */ = {
+			isa = PBXGroup;
+			children = (
+				31551B6613FE259C00B56841 /* TDStackFrame.h */,
+				31551B6713FE259C00B56841 /* TDStackFrame.m */,
+				31551B6B13FF67B600B56841 /* TDStackVariable.h */,
+				31551B6C13FF67B600B56841 /* TDStackVariable.m */,
+				31551B6E13FF68E000B56841 /* TDStackContext.h */,
+				31551B6F13FF68E000B56841 /* TDStackContext.m */,
+				31551B7113FFACBD00B56841 /* TDPlaceholderVariable.h */,
+				31551B7213FFACBE00B56841 /* TDPlaceholderVariable.m */,
+				31551B771401FB5B00B56841 /* TDBookmark.h */,
+				31551B781401FB5C00B56841 /* TDBookmark.m */,
+			);
+			name = Programming;
+			sourceTree = "<group>";
+		};
+		317C2C1913F18FDC0071E1C2 /* Project Navigator */ = {
+			isa = PBXGroup;
+			children = (
+				31ACF7E313EFB55C003D2096 /* TDProjectNavigatorView.h */,
+				31ACF7E413EFB55C003D2096 /* TDProjectNavigatorView.m */,
+				31D5F104140782580030DAA9 /* TDProjectNavigatorView.xib */,
+				3173DA5213EDC5F700C009E7 /* TDOutlineViewDataSource.h */,
+				3173DA5313EDC5F700C009E7 /* TDOutlineViewDataSource.m */,
+				31B0269913EE9FA700B235B4 /* TDSearchFieldCell.h */,
+				31B0269A13EE9FA700B235B4 /* TDSearchFieldCell.m */,
+				31B0269C13EEA05200B235B4 /* TDSearchField.h */,
+				31B0269D13EEA05200B235B4 /* TDSearchField.m */,
+			);
+			name = "Project Navigator";
+			sourceTree = "<group>";
+		};
+		317C2C2113F261AB0071E1C2 /* cocoaasyncsocket */ = {
+			isa = PBXGroup;
+			children = (
+				317C2C2213F261BE0071E1C2 /* GCDAsyncSocket.h */,
+				317C2C2313F261BE0071E1C2 /* GCDAsyncSocket.m */,
+			);
+			name = cocoaasyncsocket;
+			sourceTree = "<group>";
+		};
+		317C2C3E13F33D960071E1C2 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				3116EF2613EFD44900B45E3B /* TDDebugView.h */,
+				3116EF2713EFD44900B45E3B /* TDDebugView.m */,
+				317029EA13F9F1DE009CBDD2 /* TDDebugView.xib */,
+				31FC3AD01405E700005083C1 /* TDDebugStackFrameCellView.h */,
+				31FC3AD11405E700005083C1 /* TDDebugStackFrameCellView.m */,
+			);
+			name = Debug;
+			sourceTree = "<group>";
+		};
+		317C2C4713F395800071E1C2 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				317C2C4813F3959B0071E1C2 /* TDBookmarksView.h */,
+				317C2C4913F3959B0071E1C2 /* TDBookmarksView.m */,
+				31C38F7F13F604B8007B7AB3 /* TDBookmarksView.xib */,
+				31069B461404D8E700A1010F /* TDBookmarkFileCellView.h */,
+				31069B471404D8E700A1010F /* TDBookmarkFileCellView.m */,
+			);
+			name = Bookmarks;
+			sourceTree = "<group>";
+		};
+		31D5F1011406B4730030DAA9 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				31C38F6D13F43323007B7AB3 /* TDProject.h */,
+				31C38F6E13F43323007B7AB3 /* TDProject.mm */,
+				317029EC13FA65E6009CBDD2 /* TDNetworkController.h */,
+				317029ED13FA65E6009CBDD2 /* TDNetworkController.m */,
+				317029EF13FA6941009CBDD2 /* TDDebugSession.h */,
+				317029F013FA6941009CBDD2 /* TDDebugSession.m */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		B2B890F9121CD28D00AC78F1 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B2B891E0121CDCB100AC78F1 /* Plugin */,
+				31D5F1011406B4730030DAA9 /* Entities */,
+				31551B6A13FF673C00B56841 /* Programming */,
+				B2B891D4121CDC7F00AC78F1 /* Views */,
+				B2B891D2121CDC7000AC78F1 /* Categories */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		B2B89106121CD28D00AC78F1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				31069B491404DEF500A1010F /* BookmarkFileBackground.png */,
+				31069B3E1404AD7B00A1010F /* BookmarkRefresh.png */,
+				31551B741400CE9B00B56841 /* DebugBookmark.png */,
+				317C2C4113F395530071E1C2 /* ToolbarBookmarks.png */,
+				317C2C4313F395530071E1C2 /* ToolbarBookmarksHighlighted.png */,
+				317C2C2C13F33D6A0071E1C2 /* DebugBackground.png */,
+				317C2C2E13F33D6A0071E1C2 /* DebugPause.png */,
+				317C2C3013F33D6A0071E1C2 /* DebugPlay.png */,
+				317C2C3213F33D6A0071E1C2 /* DebugStepIn.png */,
+				317C2C3413F33D6A0071E1C2 /* DebugStepOut.png */,
+				317C2C3613F33D6A0071E1C2 /* DebugStepOver.png */,
+				3116EF1A13EFCD5300B45E3B /* ToolbarDebug.png */,
+				3116EF1C13EFCD5300B45E3B /* ToolbarDebugHighlighted.png */,
+				3116EF1E13EFCD5300B45E3B /* ToolbarNavigator.png */,
+				3116EF2013EFCD5300B45E3B /* ToolbarNavigatorHighlighted.png */,
+				3116EF1313EFC92300B45E3B /* ToolbarBackground.png */,
+				31B0269313EE9AA300B235B4 /* FilterIcon.png */,
+				B21734E913916FBD00299F09 /* ButtonTerminal.png */,
+				B21734EB13916FBD00299F09 /* ButtonTerminalPressed.png */,
+				093EFCA512AFEF0E00D8A18C /* Preferences.xib */,
+				17A67ED71220168000BECE6F /* defaultSettings.plist */,
+				B2B89107121CD28D00AC78F1 /* DrawerBorder.png */,
+				B2B89109121CD28D00AC78F1 /* DrawerResizeHandle.png */,
+				B2B89111121CD28E00AC78F1 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B2B89127121CD2B800AC78F1 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				317C2C2113F261AB0071E1C2 /* cocoaasyncsocket */,
+				3116EF2A13F0BF4100B45E3B /* jrswizzle */,
+				B21734D613916D0200299F09 /* MDDefines.h */,
+				B21734D713916D0200299F09 /* MDDefines.m */,
+				B2B891DD121CDCAA00AC78F1 /* MDDebugUtils.h */,
+				B2B89128121CD2B800AC78F1 /* TextMateDBGp_Prefix.pch */,
+			);
+			path = "Other Sources";
+			sourceTree = "<group>";
+		};
+		B2B891D2121CDC7000AC78F1 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				093EFCAD12AFF0EA00D8A18C /* NSWindowController+Preferences.h */,
+				093EFCAE12AFF0EA00D8A18C /* NSWindowController+Preferences.m */,
+				B2B89192121CDA1A00AC78F1 /* NSWindowController+MDMethodReplacements.h */,
+				B2B89193121CDA1A00AC78F1 /* NSWindowController+MDMethodReplacements.m */,
+				B2B89195121CDA5800AC78F1 /* NSWindowController+MDAdditions.h */,
+				B2B89196121CDA5800AC78F1 /* NSWindowController+MDAdditions.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		B2B891D4121CDC7F00AC78F1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B2B89103121CD28D00AC78F1 /* TDSplitView.h */,
+				B2B89104121CD28D00AC78F1 /* TDSplitView.m */,
+				31ACF7DF13EFB277003D2096 /* TDSidebar.h */,
+				31ACF7E013EFB277003D2096 /* TDSidebar.m */,
+				31D5F1021406B5250030DAA9 /* TDSidebar.xib */,
+				3116EF1713EFC94100B45E3B /* TDSidebarToolbar.h */,
+				3116EF1813EFC94100B45E3B /* TDSidebarToolbar.m */,
+				317C2C4713F395800071E1C2 /* Bookmarks */,
+				317C2C3E13F33D960071E1C2 /* Debug */,
+				317C2C1913F18FDC0071E1C2 /* Project Navigator */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		B2B891E0121CDCB100AC78F1 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				B2B89134121CD38D00AC78F1 /* TMPlugInController.h */,
+				B2B890FB121CD28D00AC78F1 /* TextMateDBGp.h */,
+				B2B890FC121CD28D00AC78F1 /* TextMateDBGp.m */,
+				B2B890FF121CD28D00AC78F1 /* MDSettings.h */,
+				B2B89100121CD28D00AC78F1 /* MDSettings.m */,
+				097A211512B115F300614549 /* MDPreferenceController.h */,
+				097A211612B115F300614549 /* MDPreferenceController.m */,
+			);
+			name = Plugin;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D5B49AC048680CD000E48DA /* TextMateDBGp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "TextMateDBGp" */;
+			buildPhases = (
+				8D5B49AF048680CD000E48DA /* Resources */,
+				8D5B49B1048680CD000E48DA /* Sources */,
+				8D5B49B3048680CD000E48DA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TextMateDBGp;
+			productInstallPath = "$(HOME)/Library/Bundles";
+			productName = MissingDrawer;
+			productReference = 8D5B49B6048680CD000E48DA /* TextMateDBGp.tmplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "TextMateDBGp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* MissingDrawer */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D5B49AC048680CD000E48DA /* TextMateDBGp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D5B49AF048680CD000E48DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2B89117121CD28E00AC78F1 /* DrawerBorder.png in Resources */,
+				B2B89118121CD28E00AC78F1 /* DrawerResizeHandle.png in Resources */,
+				17A67ED81220168000BECE6F /* defaultSettings.plist in Resources */,
+				093EFCA712AFEF0E00D8A18C /* Preferences.xib in Resources */,
+				B21734EF13916FBD00299F09 /* ButtonTerminal.png in Resources */,
+				B21734F013916FBD00299F09 /* ButtonTerminalPressed.png in Resources */,
+				31B0269513EE9AA300B235B4 /* FilterIcon.png in Resources */,
+				3116EF1513EFC92300B45E3B /* ToolbarBackground.png in Resources */,
+				3116EF2213EFCD5300B45E3B /* ToolbarDebug.png in Resources */,
+				3116EF2313EFCD5300B45E3B /* ToolbarDebugHighlighted.png in Resources */,
+				3116EF2413EFCD5300B45E3B /* ToolbarNavigator.png in Resources */,
+				3116EF2513EFCD5300B45E3B /* ToolbarNavigatorHighlighted.png in Resources */,
+				317C2C3813F33D6A0071E1C2 /* DebugBackground.png in Resources */,
+				317C2C3913F33D6A0071E1C2 /* DebugPause.png in Resources */,
+				317C2C3A13F33D6A0071E1C2 /* DebugPlay.png in Resources */,
+				317C2C3B13F33D6A0071E1C2 /* DebugStepIn.png in Resources */,
+				317C2C3C13F33D6A0071E1C2 /* DebugStepOut.png in Resources */,
+				317C2C3D13F33D6A0071E1C2 /* DebugStepOver.png in Resources */,
+				317C2C4513F395530071E1C2 /* ToolbarBookmarks.png in Resources */,
+				317C2C4613F395530071E1C2 /* ToolbarBookmarksHighlighted.png in Resources */,
+				31C38F8013F604B8007B7AB3 /* TDBookmarksView.xib in Resources */,
+				317029EB13F9F1DE009CBDD2 /* TDDebugView.xib in Resources */,
+				31551B761400CE9B00B56841 /* DebugBookmark.png in Resources */,
+				31069B401404AD7B00A1010F /* BookmarkRefresh.png in Resources */,
+				31069B4B1404DEF500A1010F /* BookmarkFileBackground.png in Resources */,
+				31D5F1031406B5270030DAA9 /* TDSidebar.xib in Resources */,
+				31D5F105140782590030DAA9 /* TDProjectNavigatorView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D5B49B1048680CD000E48DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2B89112121CD28E00AC78F1 /* TextMateDBGp.m in Sources */,
+				B2B89114121CD28E00AC78F1 /* MDSettings.m in Sources */,
+				B2B89116121CD28E00AC78F1 /* TDSplitView.m in Sources */,
+				B2B89194121CDA1A00AC78F1 /* NSWindowController+MDMethodReplacements.m in Sources */,
+				B2B89197121CDA5800AC78F1 /* NSWindowController+MDAdditions.m in Sources */,
+				093EFCAF12AFF0EA00D8A18C /* NSWindowController+Preferences.m in Sources */,
+				097A211712B115F300614549 /* MDPreferenceController.m in Sources */,
+				B21734D813916D0200299F09 /* MDDefines.m in Sources */,
+				3173DA5413EDC5F700C009E7 /* TDOutlineViewDataSource.m in Sources */,
+				31B0269B13EE9FA700B235B4 /* TDSearchFieldCell.m in Sources */,
+				31B0269E13EEA05200B235B4 /* TDSearchField.m in Sources */,
+				31ACF7E113EFB278003D2096 /* TDSidebar.m in Sources */,
+				31ACF7E513EFB55C003D2096 /* TDProjectNavigatorView.m in Sources */,
+				3116EF1913EFC94100B45E3B /* TDSidebarToolbar.m in Sources */,
+				3116EF2813EFD44900B45E3B /* TDDebugView.m in Sources */,
+				3116EF2D13F0BF5500B45E3B /* JRSwizzle.m in Sources */,
+				317C2C2413F261BE0071E1C2 /* GCDAsyncSocket.m in Sources */,
+				317C2C4A13F3959B0071E1C2 /* TDBookmarksView.m in Sources */,
+				31C38F6F13F43323007B7AB3 /* TDProject.mm in Sources */,
+				317029EE13FA65E6009CBDD2 /* TDNetworkController.m in Sources */,
+				317029F113FA6941009CBDD2 /* TDDebugSession.m in Sources */,
+				31551B6813FE259C00B56841 /* TDStackFrame.m in Sources */,
+				31551B6D13FF67B600B56841 /* TDStackVariable.m in Sources */,
+				31551B7013FF68E000B56841 /* TDStackContext.m in Sources */,
+				31551B7313FFACBE00B56841 /* TDPlaceholderVariable.m in Sources */,
+				31551B791401FB5C00B56841 /* TDBookmark.m in Sources */,
+				31069B481404D8E700A1010F /* TDBookmarkFileCellView.m in Sources */,
+				31FC3AD21405E700005083C1 /* TDDebugStackFrameCellView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		093EFCA512AFEF0E00D8A18C /* Preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				093EFCA612AFEF0E00D8A18C /* English */,
+			);
+			name = Preferences.xib;
+			sourceTree = "<group>";
+		};
+		31069B3E1404AD7B00A1010F /* BookmarkRefresh.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31069B3F1404AD7B00A1010F /* English */,
+			);
+			name = BookmarkRefresh.png;
+			sourceTree = "<group>";
+		};
+		31069B491404DEF500A1010F /* BookmarkFileBackground.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31069B4A1404DEF500A1010F /* English */,
+			);
+			name = BookmarkFileBackground.png;
+			sourceTree = "<group>";
+		};
+		3116EF1313EFC92300B45E3B /* ToolbarBackground.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3116EF1413EFC92300B45E3B /* English */,
+			);
+			name = ToolbarBackground.png;
+			sourceTree = "<group>";
+		};
+		3116EF1A13EFCD5300B45E3B /* ToolbarDebug.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3116EF1B13EFCD5300B45E3B /* English */,
+			);
+			name = ToolbarDebug.png;
+			sourceTree = "<group>";
+		};
+		3116EF1C13EFCD5300B45E3B /* ToolbarDebugHighlighted.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3116EF1D13EFCD5300B45E3B /* English */,
+			);
+			name = ToolbarDebugHighlighted.png;
+			sourceTree = "<group>";
+		};
+		3116EF1E13EFCD5300B45E3B /* ToolbarNavigator.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3116EF1F13EFCD5300B45E3B /* English */,
+			);
+			name = ToolbarNavigator.png;
+			sourceTree = "<group>";
+		};
+		3116EF2013EFCD5300B45E3B /* ToolbarNavigatorHighlighted.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3116EF2113EFCD5300B45E3B /* English */,
+			);
+			name = ToolbarNavigatorHighlighted.png;
+			sourceTree = "<group>";
+		};
+		31551B741400CE9B00B56841 /* DebugBookmark.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31551B751400CE9B00B56841 /* English */,
+			);
+			name = DebugBookmark.png;
+			sourceTree = "<group>";
+		};
+		317C2C2C13F33D6A0071E1C2 /* DebugBackground.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				317C2C2D13F33D6A0071E1C2 /* English */,
+			);
+			name = DebugBackground.png;
+			sourceTree = "<group>";
+		};
+		317C2C2E13F33D6A0071E1C2 /* DebugPause.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				317C2C2F13F33D6A0071E1C2 /* English */,
+			);
+			name = DebugPause.png;
+			sourceTree = "<group>";
+		};
+		317C2C3013F33D6A0071E1C2 /* DebugPlay.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				317C2C3113F33D6A0071E1C2 /* English */,
+			);
+			name = DebugPlay.png;
+			sourceTree = "<group>";
+		};
+		317C2C3213F33D6A0071E1C2 /* DebugStepIn.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				317C2C3313F33D6A0071E1C2 /* English */,
+			);
+			name = DebugStepIn.png;
+			sourceTree = "<group>";
+		};
+		317C2C3413F33D6A0071E1C2 /* DebugStepOut.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				317C2C3513F33D6A0071E1C2 /* English */,
+			);
+			name = DebugStepOut.png;
+			sourceTree = "<group>";
+		};
+		317C2C3613F33D6A0071E1C2 /* DebugStepOver.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				317C2C3713F33D6A0071E1C2 /* English */,
+			);
+			name = DebugStepOver.png;
+			sourceTree = "<group>";
+		};
+		317C2C4113F395530071E1C2 /* ToolbarBookmarks.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				317C2C4213F395530071E1C2 /* English */,
+			);
+			name = ToolbarBookmarks.png;
+			sourceTree = "<group>";
+		};
+		317C2C4313F395530071E1C2 /* ToolbarBookmarksHighlighted.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				317C2C4413F395530071E1C2 /* English */,
+			);
+			name = ToolbarBookmarksHighlighted.png;
+			sourceTree = "<group>";
+		};
+		31B0269313EE9AA300B235B4 /* FilterIcon.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31B0269413EE9AA300B235B4 /* English */,
+			);
+			name = FilterIcon.png;
+			sourceTree = "<group>";
+		};
+		B21734E913916FBD00299F09 /* ButtonTerminal.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B21734EA13916FBD00299F09 /* English */,
+			);
+			name = ButtonTerminal.png;
+			sourceTree = "<group>";
+		};
+		B21734EB13916FBD00299F09 /* ButtonTerminalPressed.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B21734EC13916FBD00299F09 /* English */,
+			);
+			name = ButtonTerminalPressed.png;
+			sourceTree = "<group>";
+		};
+		B2B89107121CD28D00AC78F1 /* DrawerBorder.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B2B89108121CD28D00AC78F1 /* English */,
+			);
+			name = DrawerBorder.png;
+			sourceTree = "<group>";
+		};
+		B2B89109121CD28D00AC78F1 /* DrawerResizeHandle.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B2B8910A121CD28D00AC78F1 /* English */,
+			);
+			name = DrawerResizeHandle.png;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB913B08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Other Sources/TextMateDBGp_Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "ENABLE_DEBUG_MODE=1";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Application Support/TextMate/PlugIns";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				PRODUCT_NAME = TextMateDBGp;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = tmplugin;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DEB913C08733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Other Sources/TextMateDBGp_Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "ENABLE_LOGS=0";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Application Support/TextMate/PlugIns";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = TextMateDBGp;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = tmplugin;
+			};
+			name = Release;
+		};
+		1DEB913F08733D840010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PRODUCT_NAME = MissingDrawer;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1DEB914008733D840010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PRODUCT_NAME = MissingDrawer;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "TextMateDBGp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913B08733D840010E9CD /* Debug */,
+				1DEB913C08733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "TextMateDBGp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB913F08733D840010E9CD /* Debug */,
+				1DEB914008733D840010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}
