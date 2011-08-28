@@ -2,7 +2,7 @@
 
 Inspired by the [Missing Drawer](https://github.com/jezdez/textmate-missingdrawer) and [MacGDBp](http://www.bluestatic.org/software/macgdbp/) projects, the TextMateDBGp plugin extends [TextMate](http://macromates.com/) with a simple [DBGp](http://xdebug.org/docs-dbgp.php)-compliant debugger for PHP in an Xcode-inspired interface.
 
-![Screenshot](https://github.com/downloads/legion80/TextMateDBGp/ScreenShot.png)
+![Screenshot](https://github.com/downloads/legion80/TextMateDBGp/ScreenShotDebug.png)
 
 The TextMateDBGp plugin supports the following features:
 
