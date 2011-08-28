@@ -31,12 +31,6 @@
 @class TDProject;
 @class TDProjectNavigatorView;
 
-typedef enum {
-  SidebarTabNavigator = 0,
-  SidebarTabDebugger = 1,
-  SidebarTabBreakpoint = 2,
-} SidebarTab;
-
 @interface TDSidebar : NSView <NSMatrixDelegate> {
 @private
   IBOutlet NSMatrix* toolbar;

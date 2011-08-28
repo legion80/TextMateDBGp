@@ -257,25 +257,22 @@
     return nil;
   }
 
-  TDStackVariable* variable = item;
-  if ([[tableColumn identifier] isEqualToString:@"Outline"])
-    return variable.name;
-  if (variable.value)
-    return variable.value;
-  if (variable.className)
-    return variable.className;
-  return variable.type;
-}
-- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
-  return ![item isMemberOfClass:[TDStackContext class]];
+  NSAttributedString* s = [(TDStackVariable*)item attributedStringWithDefaultFont:[(NSTextFieldCell*)[tableColumn dataCell] font]];
+  return s;
 }
 
 #pragma mark NSOutlineViewDelegate
 - (void)outlineView:(NSOutlineView *)outlineView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn item:(id)item {
   if ([item isMemberOfClass:[TDPlaceholderVariable class]])
     [[_project.networkController currentOpenSession] updatePendingVariable:item];
+  
+  [cell setAttributedStringValue:[outlineView.dataSource outlineView:outlineView objectValueForTableColumn:tableColumn byItem:item]];
 }
 - (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item {
   return item && [item isMemberOfClass:[TDStackContext class]];
 }
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
+  return ![item isMemberOfClass:[TDStackContext class]];
+}
+
 @end

@@ -106,7 +106,7 @@ static int s_transactionId = 0;
     return;
   
   NSString* response = [[[NSString alloc] initWithBytes:data.bytes length:data.length encoding:NSUTF8StringEncoding] autorelease];
-  //MDLog(@"%d %@", tag, response);
+  MDLog(@"%d %@", tag, response);
   // Test if we can convert it into an NSXMLDocument.
   NSError* error = nil;
   NSXMLDocument* xml = [[NSXMLDocument alloc] initWithXMLString:response

@@ -45,6 +45,14 @@ extern NSString *const TDDebugSessionDidStopNotification;
 extern NSString *const TDDebugSessionDidLoadVariablesNotification;
 extern NSString *const TDDebugSessionDidUpdateVariableNotification;
 
+extern NSString *const TDSidebarShowViewNotification;
+
+typedef enum {
+  SidebarTabNavigator = 0,
+  SidebarTabDebugger = 1,
+  SidebarTabBreakpoint = 2,
+} SidebarTab;
+
 // Tags for socket transactions
 #define TAG_DATA_LENGTH 0
 #define TAG_INITIAL_CONNECTION 1

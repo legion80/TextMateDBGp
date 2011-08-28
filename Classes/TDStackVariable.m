@@ -184,6 +184,7 @@ static const short _base64DecodingTable[256] = {
   [_size release];
   [_key release];
   [_variables release];
+  [_cachedAttrString release];
   self.value = nil;
   [super dealloc];
 }
@@ -223,6 +224,9 @@ static const short _base64DecodingTable[256] = {
   
   if ([xmlProperty attributeForName:@"encoding"])
     _isBase64Encoding = [[[xmlProperty attributeForName:@"encoding"] stringValue] isEqualToString:@"base64"];
+  
+  [_cachedAttrString release];
+  _cachedAttrString = nil;
 }
 
 - (void)appendSubProperties:(NSArray *)xmlProperties {
@@ -272,5 +276,30 @@ static const short _base64DecodingTable[256] = {
   NSData* decodedData = [[NSData decodeBase64WithString:xmlValue] retain];
   self.value = [NSString stringWithCString:decodedData.bytes encoding:NSUTF8StringEncoding];
   [decodedData release];
+}
+
+- (NSAttributedString *)attributedStringWithDefaultFont:(NSFont*)font {
+  if (_cachedAttrString)
+    return _cachedAttrString;
+  
+  int fontSize = font.pointSize;
+  NSMutableString* s = [NSMutableString stringWithFormat:@"<span style=\"font-family:'%@';font-size:%dpx\"><b>%@</b> <font color=\"#999\">=</font>",font.fontName, fontSize,self.name];
+  if (self.value) {
+    [s appendFormat:@" %@", self.value];
+  }
+  [s appendFormat:@"</span><span style=\"font-family:'Arial'; font-size:%dpx; font-style:italic\">", fontSize - 1];
+  if (self.className) {
+    [s appendFormat:@"<span style=\"color:blue;\"> %@</span>", self.className];
+  }
+  if (self.type) {
+    [s appendFormat:@"<span style=\"color:green\"> %@</span>", self.type];
+  }
+  if (self.address)
+    [s appendFormat:@"<span style=\"color:#888\"> (%@)</span>", self.address];
+  [s appendString:@"</span>"];
+  _cachedAttrString = [[NSMutableAttributedString alloc] initWithHTML:[s dataUsingEncoding:NSUTF8StringEncoding]
+                                                   documentAttributes:NULL];
+  //[_cachedAttrString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, [_cachedAttrString length])];
+  return _cachedAttrString;
 }
 @end

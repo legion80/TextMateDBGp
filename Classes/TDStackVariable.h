@@ -50,6 +50,7 @@
   NSString* _value;
   
   TDStackContext* _stackContext; // weak
+  NSMutableAttributedString* _cachedAttrString;
 }
 
 @property (nonatomic,readonly,retain) NSString* address;
@@ -68,6 +69,7 @@
 @property (nonatomic,readonly,retain) NSString* value;
 @property (nonatomic,retain) NSArray* variables;
 
+- (NSAttributedString*)attributedStringWithDefaultFont:(NSFont*)font;
 - (void)parsePropertyAttributes:(NSXMLElement*)xmlProperty;
 - (void)appendSubProperties:(NSArray*)xmlProperties;
 - (void)parseValue:(NSString*)xmlValue;

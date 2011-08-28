@@ -38,40 +38,59 @@ static MDSettings *_defaultSettings = nil;
 @synthesize toggleSplitViewLayoutMenuItem = _toggleSplitViewLayoutMenuItem;
 @synthesize focusSideViewMenuItem = _focusSideViewMenuItem;
 @synthesize filterInDrawerMenuItem = _filterInDrawerMenuItem;
+@synthesize navigatorViewMenuItem = _navigatorViewMenuItem;
+@synthesize debuggerViewMenuItem = _debuggerViewMenuItem;
+@synthesize breakpointsViewMenuItem = _breakpointsViewMenuItem;
 @synthesize bgColor = _bgColor;
 @synthesize bgColorInactive = _bgColorInactive;
 @synthesize namedColors = _namedColors; 
 
 - (id)init {
-	if ((self = [super init])) {
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		
-		// initially register defaults from bundled defaultSettings.plist file
-		NSBundle *pluginBundle = [NSBundle bundleForClass:[self class]];
-		NSDictionary *bundledDefaultSettings = [[NSDictionary alloc] initWithContentsOfFile:[pluginBundle pathForResource:@"defaultSettings" ofType:@"plist"]];
-		[defaults registerDefaults:bundledDefaultSettings];
-		[bundledDefaultSettings release];
-		[defaults synchronize];
-		
-		self.sideViewLayout = NSRectFromString([defaults objectForKey:kMDSideViewFrameKey]);
-		self.mainViewLayout = NSRectFromString([defaults objectForKey:kMDMainViewFrameKey]);
-		self.showSideViewOnLeft = [defaults boolForKey:kMDSideViewLeftKey];
-		
-		NSString *menuTitle = self.showSideViewOnLeft ? @"Show on the Right" : @"Show on the Left";
-		_toggleSplitViewLayoutMenuItem = [[NSMenuItem alloc] initWithTitle:menuTitle action:@selector(toggleSideViewLayout:) keyEquivalent:@""];
-		[_toggleSplitViewLayoutMenuItem setTarget:self];
-		[_toggleSplitViewLayoutMenuItem setEnabled:YES];
+	if (!(self = [super init]))
+    return nil;
+  
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  
+  // initially register defaults from bundled defaultSettings.plist file
+  NSBundle *pluginBundle = [NSBundle bundleForClass:[self class]];
+  NSDictionary *bundledDefaultSettings = [[NSDictionary alloc] initWithContentsOfFile:[pluginBundle pathForResource:@"defaultSettings" ofType:@"plist"]];
+  [defaults registerDefaults:bundledDefaultSettings];
+  [bundledDefaultSettings release];
+  [defaults synchronize];
+  
+  self.sideViewLayout = NSRectFromString([defaults objectForKey:kMDSideViewFrameKey]);
+  self.mainViewLayout = NSRectFromString([defaults objectForKey:kMDMainViewFrameKey]);
+  self.showSideViewOnLeft = [defaults boolForKey:kMDSideViewLeftKey];
+  
+  NSString *menuTitle = self.showSideViewOnLeft ? @"Show on the Right" : @"Show on the Left";
+  _toggleSplitViewLayoutMenuItem = [[NSMenuItem alloc] initWithTitle:menuTitle action:@selector(toggleSideViewLayout:) keyEquivalent:@""];
+  [_toggleSplitViewLayoutMenuItem setTarget:self];
+  [_toggleSplitViewLayoutMenuItem setEnabled:YES];
+  
+  _focusSideViewMenuItem = [[NSMenuItem alloc] initWithTitle:@"Focus Sideview" action:@selector(focusSideView:) keyEquivalent:@"["];
+  [_focusSideViewMenuItem setKeyEquivalentModifierMask:(NSControlKeyMask | NSAlternateKeyMask | NSCommandKeyMask)];
+  [_focusSideViewMenuItem setTarget:self];
+  [_focusSideViewMenuItem setEnabled:YES];
+  
+  _filterInDrawerMenuItem = [[NSMenuItem alloc] initWithTitle:@"Filter in Drawer" action:@selector(filterInDrawer:) keyEquivalent:@"j"];
+  [_filterInDrawerMenuItem setKeyEquivalentModifierMask:(NSAlternateKeyMask | NSCommandKeyMask)];
+  [_filterInDrawerMenuItem setTarget:self];
+  [_filterInDrawerMenuItem setEnabled:YES];
+  
+  _navigatorViewMenuItem = [[NSMenuItem alloc] initWithTitle:@"Navigator View" action:@selector(showView:) keyEquivalent:@"1"];
+  [_navigatorViewMenuItem setKeyEquivalentModifierMask:(NSControlKeyMask | NSCommandKeyMask)];
+  [_navigatorViewMenuItem setTarget:self];
+  [_navigatorViewMenuItem setEnabled:YES];
 
-		_focusSideViewMenuItem = [[NSMenuItem alloc] initWithTitle:@"Focus Sideview" action:@selector(focusSideView:) keyEquivalent:@"["];
-		[_focusSideViewMenuItem setKeyEquivalentModifierMask:(NSControlKeyMask | NSAlternateKeyMask | NSCommandKeyMask)];
-		[_focusSideViewMenuItem setTarget:self];
-		[_focusSideViewMenuItem setEnabled:YES];
-    
-    _filterInDrawerMenuItem = [[NSMenuItem alloc] initWithTitle:@"Filter in Drawer" action:@selector(filterInDrawer:) keyEquivalent:@"j"];
-		[_filterInDrawerMenuItem setKeyEquivalentModifierMask:(NSAlternateKeyMask | NSCommandKeyMask)];
-		[_filterInDrawerMenuItem setTarget:self];
-		[_filterInDrawerMenuItem setEnabled:YES];
-	}
+  _debuggerViewMenuItem = [[NSMenuItem alloc] initWithTitle:@"Debugger View" action:@selector(showView:) keyEquivalent:@"2"];
+  [_debuggerViewMenuItem setKeyEquivalentModifierMask:(NSControlKeyMask | NSCommandKeyMask)];
+  [_debuggerViewMenuItem setTarget:self];
+  [_debuggerViewMenuItem setEnabled:YES];
+  
+  _breakpointsViewMenuItem = [[NSMenuItem alloc] initWithTitle:@"Breakpoints View" action:@selector(showView:) keyEquivalent:@"3"];
+  [_breakpointsViewMenuItem setKeyEquivalentModifierMask:(NSControlKeyMask | NSCommandKeyMask)];
+  [_breakpointsViewMenuItem setTarget:self];
+  [_breakpointsViewMenuItem setEnabled:YES];
 	return self;
 }
 
@@ -94,6 +113,15 @@ static MDSettings *_defaultSettings = nil;
   [[NSNotificationCenter defaultCenter] postNotificationName:@"MDFilterInDrawerNotification" object:nil];
 }
 
+- (void)showView:(id)sender {
+  NSNumber* viewIndex = [NSNumber numberWithInt:SidebarTabNavigator];
+  if (sender == _debuggerViewMenuItem)
+    viewIndex = [NSNumber numberWithInt:SidebarTabDebugger];
+  else if (sender == _breakpointsViewMenuItem)
+    viewIndex = [NSNumber numberWithInt:SidebarTabBreakpoint];
+  [[NSNotificationCenter defaultCenter] postNotificationName:TDSidebarShowViewNotification object:viewIndex];
+}
+
 - (void)save {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:NSStringFromRect(self.sideViewLayout) forKey:kMDSideViewFrameKey];
@@ -105,40 +133,40 @@ static MDSettings *_defaultSettings = nil;
 #pragma mark Singleton
 
 + (MDSettings *)defaultSettings {
-    if (_defaultSettings == nil) {
-        _defaultSettings = [[super allocWithZone:NULL] init];
-    }
-    return _defaultSettings;
+  if (_defaultSettings == nil) {
+    _defaultSettings = [[super allocWithZone:NULL] init];
+  }
+  return _defaultSettings;
 }
 
 
 + (id)allocWithZone:(NSZone *)zone {
-    return [[self defaultSettings] retain];
+  return [[self defaultSettings] retain];
 }
 
 
 - (id)copyWithZone:(NSZone *)zone {
-    return self;
+  return self;
 }
 
 
 - (id)retain {
-    return self;
+  return self;
 }
 
 
 - (NSUInteger)retainCount {
-    return NSUIntegerMax;
+  return NSUIntegerMax;
 }
 
 
 - (oneway void)release {
-    // Do nothing
+  // Do nothing
 }
 
 
 - (id)autorelease {
-    return self;
+  return self;
 }
 
 @end

@@ -29,7 +29,7 @@
 #import "TDOutlineViewDataSource.h"
 
 @interface TDOutlineViewDataSource (PrivateMethods)
-- (BOOL)_recurse:(NSMutableDictionary*)node;
+- (BOOL)_recurse:(NSMutableDictionary*)node :(NSRegularExpression*)regex;
 @end
 
 @implementation TDOutlineViewDataSource
@@ -55,8 +55,13 @@
   [super dealloc];
 }
 
-- (BOOL)_recurse:(NSMutableDictionary*)node {
+- (BOOL)_recurse:(NSMutableDictionary*)node :(NSRegularExpression*)regex {
   BOOL isItselfOrHasChildrenThatPassesFilter = NO;
+  
+  BOOL (^fileNamePassesTest)(NSString*) = ^BOOL(NSString* filename) {
+    return [regex rangeOfFirstMatchInString:filename options:0 range:NSMakeRange(0, [filename length])].location != NSNotFound;
+  };
+  
   NSArray* children = [node objectForKey:@"children"];
   if (children) {
     NSMutableArray* newChildren = [children mutableCopy];
@@ -69,7 +74,7 @@
       if ([item objectForKey:@"children"]) {
         /// this has children
         NSMutableDictionary* newItem = [item mutableCopy];
-        if (![self _recurse:newItem]) {
+        if (![self _recurse:newItem :regex]) {
           [newChildren removeObjectAtIndex:index];
           [newItem release];
           continue;
@@ -80,7 +85,7 @@
         isItselfOrHasChildrenThatPassesFilter |= YES;
       }
       else {
-        if ([(NSString*)[item objectForKey:@"displayName"] rangeOfString:_currentFilter options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)].location == NSNotFound ) {
+        if (!fileNamePassesTest([item objectForKey:@"displayName"])) {
           [newChildren removeObjectAtIndex:index];
           continue;
         }
@@ -91,7 +96,7 @@
     }
   }
   
-  isItselfOrHasChildrenThatPassesFilter |= [(NSString*)[node objectForKey:@"displayName"] rangeOfString:_currentFilter options:(NSCaseInsensitiveSearch | NSDiacriticInsensitiveSearch)].location != NSNotFound;
+  isItselfOrHasChildrenThatPassesFilter |= fileNamePassesTest([node objectForKey:@"displayName"]);
   return isItselfOrHasChildrenThatPassesFilter;
 }
 
@@ -102,10 +107,17 @@
   }
   
   int numberOfRootElements = [_originalDataSource outlineView:nil numberOfChildrenOfItem:nil];
+  NSString* pattern = [[[_currentFilter
+                         stringByReplacingOccurrencesOfString:@"." withString:@"\\."]
+                        stringByReplacingOccurrencesOfString:@"*" withString:@".*"]
+                       stringByReplacingOccurrencesOfString:@"?" withString:@".{1}"];
+  NSRegularExpression* regex = [NSRegularExpression
+                                regularExpressionWithPattern:pattern
+                                options:NSRegularExpressionCaseInsensitive error:NULL];
   for (int i = 0; i < numberOfRootElements; ++i) {
     NSDictionary* root = [_originalDataSource outlineView:nil child:i ofItem:nil];
     NSMutableDictionary* newRoot = [root mutableCopy];
-    [self _recurse:newRoot];
+    [self _recurse:newRoot :regex];
     [_rootDirectoryInfo setObject:newRoot forKey:[root objectForKey:@"sourceDirectory"]];
     [newRoot release];
   }

@@ -28,11 +28,16 @@
 
 #import "TDSidebar.h"
 
+#import "MDSettings.h"
 #import "TDBookmarksView.h"
 #import "TDDebugView.h"
 #import "TDNetworkController.h"
 #import "TDProject.h"
 #import "TDProjectNavigatorView.h"
+
+@interface TDSidebar ()
+- (void)menuItemClicked:(id)sender;
+@end
 
 @implementation TDSidebar
 @synthesize project = _project;
@@ -46,12 +51,8 @@
   if (!(self = [super initWithFrame:frameRect]))
     return nil;
   _project = [[TDProject alloc] init];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuItemClicked:) name:TDSidebarShowViewNotification object:nil];
   return self;
-}
-
-- (void)awakeFromNib {
-  /*
-  */
 }
 
 - (void)dealloc {
@@ -90,13 +91,17 @@
   
   [NSBundle loadNibNamed:@"TDBookmarksView" owner:self];
   _bookmarksView.project = _project;
-
+  
   return _bookmarksView;
+}
+
+- (void)menuItemClicked:(id)sender {
+  [self selectTab:[[sender object] intValue]];
 }
 
 - (void)toolbarClicked:(id)sender {
   int column = [toolbar selectedColumn];
-
+  
   if ([[contentView subviews] count] > 0)
     [[[contentView subviews] objectAtIndex:0] removeFromSuperview];
   
@@ -114,6 +119,12 @@
   }
   panel.frame = contentView.bounds;
   [contentView addSubview:panel];
+  
+  // update menu items
+	MDSettings *settings = [MDSettings defaultSettings];
+  [settings.navigatorViewMenuItem setState:column == SidebarTabNavigator ? NSOnState : NSOffState];
+  [settings.debuggerViewMenuItem setState:column == SidebarTabDebugger ? NSOnState : NSOffState];
+  [settings.breakpointsViewMenuItem setState:column == SidebarTabBreakpoint ? NSOnState : NSOffState];
 }
 
 - (SidebarTab)selectedTab {

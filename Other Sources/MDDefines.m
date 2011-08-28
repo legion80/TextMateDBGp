@@ -44,6 +44,8 @@ NSString *const TDDebugSessionDidStopNotification = @"TDDebugSessionDidStopNotif
 NSString *const TDDebugSessionDidLoadVariablesNotification = @"TDDebugSessionDidLoadVariablesNotification";
 NSString *const TDDebugSessionDidUpdateVariableNotification = @"TDDebugSessionDidUpdateVariableNotification";
 
+NSString *const TDSidebarShowViewNotification = @"TDSidebarShowViewNotification";
+
 // DBGp constants
 NSString *const DBGpCommandBreakpointRemove = @"breakpoint_remove";
 NSString *const DBGpCommandBreakpointSet = @"breakpoint_set";

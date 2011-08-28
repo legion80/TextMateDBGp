@@ -125,6 +125,11 @@
 	[drawerMenu addItem:settings.toggleSplitViewLayoutMenuItem];
 	[drawerMenu addItem:settings.focusSideViewMenuItem];
   [drawerMenu addItem:settings.filterInDrawerMenuItem];
+  [drawerMenu addItem:[NSMenuItem separatorItem]];
+  [drawerMenu addItem:settings.navigatorViewMenuItem];
+  [drawerMenu addItem:settings.debuggerViewMenuItem];
+  [drawerMenu addItem:settings.breakpointsViewMenuItem];
+  
 	[showHideDrawerMenuItem retain];
 	[viewMenu removeItemAtIndex:drawerMenuItemIndex];
 	[drawerMenu insertItem:showHideDrawerMenuItem atIndex:0];
