@@ -3,6 +3,7 @@
 //  TextMateDBGp
 //
 //	Copyright (c) The MissingDrawer authors.
+//  Copyright (c) Jon Lee.
 //
 //	Permission is hereby granted, free of charge, to any person
 //	obtaining a copy of this software and associated documentation
@@ -27,9 +28,10 @@
 //
 
 #import "NSWindowController+MDMethodReplacements.h"
+
+#import "MDSettings.h"
 #import "NSWindowController+MDAdditions.h"
 #import "TextMateDBGp.h"
-#import "MDSettings.h"
 #import "TDSidebar.h"
 #import "TDSplitView.h"
 #import <objc/objc-runtime.h>
@@ -113,4 +115,16 @@
   }
 }
 
+- (BOOL)TD_validateMenuItem:(NSMenuItem*)menuItem {
+  BOOL result = [self TD_validateMenuItem:menuItem];
+  NSResponder* responder = [[self window] firstResponder];
+  if ([responder respondsToSelector:@selector(tag)] && [(NSView*)responder tag] == 123456789) {
+    NSOutlineView* outlineView = (NSOutlineView*)responder;
+    if ([[menuItem title] isEqualToString:@"Copy"])
+      result = [outlineView selectedRow] >= 0;
+    else if ([[menuItem title] hasPrefix:@"Paste"])
+      result = NO;
+  }
+  return result;
+}
 @end

@@ -43,6 +43,7 @@
 		317C2C4513F395530071E1C2 /* ToolbarBookmarks.png in Resources */ = {isa = PBXBuildFile; fileRef = 317C2C4113F395530071E1C2 /* ToolbarBookmarks.png */; };
 		317C2C4613F395530071E1C2 /* ToolbarBookmarksHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 317C2C4313F395530071E1C2 /* ToolbarBookmarksHighlighted.png */; };
 		317C2C4A13F3959B0071E1C2 /* TDBookmarksView.m in Sources */ = {isa = PBXBuildFile; fileRef = 317C2C4913F3959B0071E1C2 /* TDBookmarksView.m */; };
+		31870794140A0A26006B3DB4 /* TDDebugVariableOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31870793140A0A26006B3DB4 /* TDDebugVariableOutlineView.m */; };
 		31ACF7E113EFB278003D2096 /* TDSidebar.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ACF7E013EFB277003D2096 /* TDSidebar.m */; };
 		31ACF7E513EFB55C003D2096 /* TDProjectNavigatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31ACF7E413EFB55C003D2096 /* TDProjectNavigatorView.m */; };
 		31B0269513EE9AA300B235B4 /* FilterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 31B0269313EE9AA300B235B4 /* FilterIcon.png */; };
@@ -123,6 +124,8 @@
 		317C2C4413F395530071E1C2 /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarBookmarksHighlighted.png; sourceTree = "<group>"; };
 		317C2C4813F3959B0071E1C2 /* TDBookmarksView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = TDBookmarksView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		317C2C4913F3959B0071E1C2 /* TDBookmarksView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TDBookmarksView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		31870792140A0A26006B3DB4 /* TDDebugVariableOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDDebugVariableOutlineView.h; sourceTree = "<group>"; };
+		31870793140A0A26006B3DB4 /* TDDebugVariableOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDebugVariableOutlineView.m; sourceTree = "<group>"; };
 		31ACF7DF13EFB277003D2096 /* TDSidebar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSidebar.h; sourceTree = "<group>"; };
 		31ACF7E013EFB277003D2096 /* TDSidebar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSidebar.m; sourceTree = "<group>"; };
 		31ACF7E313EFB55C003D2096 /* TDProjectNavigatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDProjectNavigatorView.h; sourceTree = "<group>"; };
@@ -270,6 +273,8 @@
 				317029EA13F9F1DE009CBDD2 /* TDDebugView.xib */,
 				31FC3AD01405E700005083C1 /* TDDebugStackFrameCellView.h */,
 				31FC3AD11405E700005083C1 /* TDDebugStackFrameCellView.m */,
+				31870792140A0A26006B3DB4 /* TDDebugVariableOutlineView.h */,
+				31870793140A0A26006B3DB4 /* TDDebugVariableOutlineView.m */,
 			);
 			name = Debug;
 			sourceTree = "<group>";
@@ -517,6 +522,7 @@
 				31551B791401FB5C00B56841 /* TDBookmark.m in Sources */,
 				31069B481404D8E700A1010F /* TDBookmarkFileCellView.m in Sources */,
 				31FC3AD21405E700005083C1 /* TDDebugStackFrameCellView.m in Sources */,
+				31870794140A0A26006B3DB4 /* TDDebugVariableOutlineView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

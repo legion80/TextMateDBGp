@@ -1,8 +1,8 @@
 //
-//  NSWindowController+MDMethodReplacements.h
+//  TDDebugVariablesOutlineView.m
 //  TextMateDBGp
 //
-//	Copyright (c) The MissingDrawer authors.
+//	Copyright (c) Jon Lee.
 //
 //	Permission is hereby granted, free of charge, to any person
 //	obtaining a copy of this software and associated documentation
@@ -26,15 +26,27 @@
 //	OTHER DEALINGS IN THE SOFTWARE.
 //
 
-@interface NSWindowController (MDOakProjectControllerMethodReplacements)
+#import "TDDebugVariableOutlineView.h"
 
-- (void)MD_repl_windowDidLoad;
-- (void)MD_repl_windowWillClose:(NSNotification *)notification;
-- (void)MD_repl_revealInProject:(id)sender;
-- (void)MD_repl_openProjectDrawer:(id)sender;
-- (BOOL)TD_validateMenuItem:(NSMenuItem*)menuItem;
-@end
+#import "TDStackVariable.h"
 
-@interface NSView (asdf)
--(void)TD_copy:(id)sender;
+@implementation TDDebugVariableOutlineView
+- (void)copy:(id)sender {
+  NSIndexSet* rows = [self selectedRowIndexes];
+  NSMutableArray* data = [NSMutableArray array];
+  [rows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+    id item = [self itemAtRow:idx];
+    int level = [self levelForRow:idx];
+    if (![item isMemberOfClass:[TDStackVariable class]])
+      return;
+    TDStackVariable* variable = item;
+    [data addObject:[NSString stringWithFormat:@"%@%@\t%@\t%@\t%@",
+                     [@"" stringByPaddingToLength:level withString:@"." startingAtIndex:0],
+                     variable.name, variable.value == nil ? @"" : variable.value,
+                     variable.type, variable.address == nil ? @"" : variable.address]];
+  }];
+  NSPasteboard* pb = [NSPasteboard generalPasteboard];
+  [pb clearContents];
+  [pb writeObjects:data];
+}
 @end

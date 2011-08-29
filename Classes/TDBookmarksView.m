@@ -77,7 +77,7 @@
 
 + (void)load {
   [OakTextView jr_swizzleMethod:@selector(toggleCurrentBookmark:) withMethod:@selector(TD_toggleCurrentBookmark:) error:NULL];
-  [OakTextView jr_swizzleMethod:@selector(mouseDown:) withMethod:@selector(TD_mouseDown:) error:NULL];
+  [OakTextView jr_swizzleMethod:@selector(mouseDown:) withMethod:@selector(TD_mouseDown:) error:NULL];  
 }
 
 - (void)dealloc {

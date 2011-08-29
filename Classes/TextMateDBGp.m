@@ -61,6 +61,7 @@
   [OakProjectController jr_swizzleMethod:@selector(windowWillClose:) withMethod:@selector(MD_repl_windowWillClose:) error:NULL];
   [OakProjectController jr_swizzleMethod:@selector(openProjectDrawer:) withMethod:@selector(MD_repl_openProjectDrawer:) error:NULL];
   [OakProjectController jr_swizzleMethod:@selector(revealInProject:) withMethod:@selector(MD_repl_revealInProject:) error:NULL];
+  [OakProjectController jr_swizzleMethod:@selector(validateMenuItem:) withMethod:@selector(TD_validateMenuItem:) error:NULL];
 }
 
 #pragma mark Class Methods

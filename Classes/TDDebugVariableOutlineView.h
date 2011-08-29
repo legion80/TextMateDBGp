@@ -1,8 +1,8 @@
 //
-//  NSWindowController+MDMethodReplacements.h
+//  TDDebugVariablesOutlineView.h
 //  TextMateDBGp
 //
-//	Copyright (c) The MissingDrawer authors.
+//	Copyright (c) Jon Lee.
 //
 //	Permission is hereby granted, free of charge, to any person
 //	obtaining a copy of this software and associated documentation
@@ -26,15 +26,6 @@
 //	OTHER DEALINGS IN THE SOFTWARE.
 //
 
-@interface NSWindowController (MDOakProjectControllerMethodReplacements)
-
-- (void)MD_repl_windowDidLoad;
-- (void)MD_repl_windowWillClose:(NSNotification *)notification;
-- (void)MD_repl_revealInProject:(id)sender;
-- (void)MD_repl_openProjectDrawer:(id)sender;
-- (BOOL)TD_validateMenuItem:(NSMenuItem*)menuItem;
-@end
-
-@interface NSView (asdf)
--(void)TD_copy:(id)sender;
+@interface TDDebugVariableOutlineView : NSOutlineView
+- (void)copy:(id)sender;
 @end

@@ -79,6 +79,7 @@
   
   [NSBundle loadNibNamed:@"TDDebugView" owner:self];
   _debugView.project = _project;
+  _debugView.sidebar = self;
   
   _project.networkController.bookmarksEnabled = [(NSCell*)_debugView.bookmarksButton.cell state] == NSOnState;
   _project.networkController.firstLineBreak = [(NSCell*)_debugView.firstLineButton.cell state] == NSOnState;
@@ -132,6 +133,9 @@
 }
 
 - (void)selectTab:(SidebarTab)tab {
+  if ([toolbar selectedColumn] == tab)
+    return;
+  
   [toolbar selectCellAtRow:0 column:tab];
   [self toolbarClicked:toolbar];
 }

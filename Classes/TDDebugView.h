@@ -29,6 +29,8 @@
 #import "GCDAsyncSocket.h"
 
 @class TDProject;
+@class TDSidebar;
+
 @interface TDDebugView : NSView <GCDAsyncSocketDelegate, NSTableViewDataSource, NSTableViewDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate> {
 @private
   IBOutlet NSButton* connectButton;
@@ -46,10 +48,12 @@
   IBOutlet NSOutlineView* variableOutlineView;
 
   TDProject* _project;
+  TDSidebar* _sidebar; //weak
   NSColor* _backgroundColor;
 }
 
 @property (nonatomic,retain) TDProject* project;
+@property (nonatomic,assign) TDSidebar* sidebar;
 @property (nonatomic,retain) NSColor* backgroundColor;
 @property (assign) NSButton* connectButton;
 @property (assign) NSButton* firstLineButton;

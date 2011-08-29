@@ -52,6 +52,7 @@
 @implementation TDDebugView
 @synthesize project = _project;
 @synthesize backgroundColor = _backgroundColor;
+@synthesize sidebar = _sidebar;
 
 @synthesize connectButton;
 @synthesize firstLineButton;
@@ -114,6 +115,8 @@
   [stackTableView reloadData];
   if ([session.lastStatus isEqualToString:DBGpStatusBreak]) {
     [NSApp activateIgnoringOtherApps:YES];
+    [_sidebar selectTab:SidebarTabDebugger];
+    
     [self setToolbarDisabled:NO];
     [debugPlayButton.cell setImage:[TextMateDBGp bundledImageWithName:@"DebugPlay"]];
     [stackTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
