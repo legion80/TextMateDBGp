@@ -153,6 +153,7 @@
 - (void)restoreLayout {
   MDSettings *settings = [MDSettings defaultSettings];
   [self applyLayout:settings.sideViewLayout toView:self.sidebar];
+  [self.sidebar adjustLayout];
   [self applyLayout:settings.mainViewLayout toView:self.mainView];
 }
 

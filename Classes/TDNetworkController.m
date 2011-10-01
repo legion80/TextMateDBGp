@@ -80,12 +80,10 @@ static int s_transactionId = 0;
   [self didChangeValueForKey:@"bookmarksEnabled"];
   if ([[self currentOpenSession] state] != WaitingForContact) {
     for (id fileItem in self.project.bookmarkKeys) {
-      for (NSArray* bookmarksForFile in [self.project bookmarksForFileItem:fileItem]) {
-        for (TDBookmark* bookmark in bookmarksForFile) {
-          if (![bookmark bookmarkIdDetermined])
-            continue;
-          [self session:[self currentOpenSession] updateBreakpointId:bookmark.bookmarkId enabled:_bookmarksEnabled];
-        }
+      for (TDBookmark* bookmark in [self.project bookmarksForFileItem:fileItem]) {
+        if (![bookmark bookmarkIdDetermined])
+          continue;
+        [self session:[self currentOpenSession] updateBreakpointId:bookmark.bookmarkId enabled:_bookmarksEnabled];
       }
     }
   }
@@ -229,6 +227,6 @@ static int s_transactionId = 0;
 }
 
 - (long)session:(TDDebugSession *)session propertyGet:(NSString *)fullName context:(int)context stackDepth:(int)depth page:(int)page {
-  return [self session:session sendRequest:[NSString stringWithFormat:@"%@ -n %@ -d %d -c %d -p %d", DBGpCommandPropertyGet, fullName, depth, context, page]];
+  return [self session:session sendRequest:[NSString stringWithFormat:@"%@ -n \"%@\" -d %d -c %d -p %d", DBGpCommandPropertyGet, fullName, depth, context, page]];
 }
 @end

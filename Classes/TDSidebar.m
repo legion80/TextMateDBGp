@@ -96,6 +96,13 @@
   return _bookmarksView;
 }
 
+- (void)adjustLayout {
+  NSRect frame = toolbar.frame;
+  frame.origin.x = (self.bounds.size.width - frame.size.width) / 2;
+  toolbar.frame = frame;
+  [self.navigatorView adjustLayout];
+}
+
 - (void)menuItemClicked:(id)sender {
   [self selectTab:[[sender object] intValue]];
 }

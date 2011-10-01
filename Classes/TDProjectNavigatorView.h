@@ -58,4 +58,5 @@
 - (void)filterOutlineView:(NSNotification*)notification;
 - (void)recalculateTree;
 - (void)terminalButtonPressed:(id)sender;
+- (void)adjustLayout;
 @end

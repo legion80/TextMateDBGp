@@ -15,7 +15,6 @@
 		31069B481404D8E700A1010F /* TDBookmarkFileCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31069B471404D8E700A1010F /* TDBookmarkFileCellView.m */; };
 		31069B4B1404DEF500A1010F /* BookmarkFileBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 31069B491404DEF500A1010F /* BookmarkFileBackground.png */; };
 		3116EF1513EFC92300B45E3B /* ToolbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3116EF1313EFC92300B45E3B /* ToolbarBackground.png */; };
-		3116EF1913EFC94100B45E3B /* TDSidebarToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3116EF1813EFC94100B45E3B /* TDSidebarToolbar.m */; };
 		3116EF2213EFCD5300B45E3B /* ToolbarDebug.png in Resources */ = {isa = PBXBuildFile; fileRef = 3116EF1A13EFCD5300B45E3B /* ToolbarDebug.png */; };
 		3116EF2313EFCD5300B45E3B /* ToolbarDebugHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 3116EF1C13EFCD5300B45E3B /* ToolbarDebugHighlighted.png */; };
 		3116EF2413EFCD5300B45E3B /* ToolbarNavigator.png in Resources */ = {isa = PBXBuildFile; fileRef = 3116EF1E13EFCD5300B45E3B /* ToolbarNavigator.png */; };
@@ -83,8 +82,6 @@
 		31069B471404D8E700A1010F /* TDBookmarkFileCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBookmarkFileCellView.m; sourceTree = "<group>"; };
 		31069B4A1404DEF500A1010F /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/BookmarkFileBackground.png; sourceTree = "<group>"; };
 		3116EF1413EFC92300B45E3B /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarBackground.png; sourceTree = "<group>"; };
-		3116EF1713EFC94100B45E3B /* TDSidebarToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSidebarToolbar.h; sourceTree = "<group>"; };
-		3116EF1813EFC94100B45E3B /* TDSidebarToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSidebarToolbar.m; sourceTree = "<group>"; };
 		3116EF1B13EFCD5300B45E3B /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarDebug.png; sourceTree = "<group>"; };
 		3116EF1D13EFCD5300B45E3B /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarDebugHighlighted.png; sourceTree = "<group>"; };
 		3116EF1F13EFCD5300B45E3B /* English */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = English; path = English.lproj/ToolbarNavigator.png; sourceTree = "<group>"; };
@@ -381,8 +378,6 @@
 				31ACF7DF13EFB277003D2096 /* TDSidebar.h */,
 				31ACF7E013EFB277003D2096 /* TDSidebar.m */,
 				31D5F1021406B5250030DAA9 /* TDSidebar.xib */,
-				3116EF1713EFC94100B45E3B /* TDSidebarToolbar.h */,
-				3116EF1813EFC94100B45E3B /* TDSidebarToolbar.m */,
 				317C2C4713F395800071E1C2 /* Bookmarks */,
 				317C2C3E13F33D960071E1C2 /* Debug */,
 				317C2C1913F18FDC0071E1C2 /* Project Navigator */,
@@ -507,7 +502,6 @@
 				31B0269E13EEA05200B235B4 /* TDSearchField.m in Sources */,
 				31ACF7E113EFB278003D2096 /* TDSidebar.m in Sources */,
 				31ACF7E513EFB55C003D2096 /* TDProjectNavigatorView.m in Sources */,
-				3116EF1913EFC94100B45E3B /* TDSidebarToolbar.m in Sources */,
 				3116EF2813EFD44900B45E3B /* TDDebugView.m in Sources */,
 				3116EF2D13F0BF5500B45E3B /* JRSwizzle.m in Sources */,
 				317C2C2413F261BE0071E1C2 /* GCDAsyncSocket.m in Sources */,

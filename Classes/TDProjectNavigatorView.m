@@ -321,4 +321,10 @@ NSComparisonResult compareFrameOriginX(id viewA, id viewB, void *context) {
     });
   });
 }
+
+- (void)adjustLayout {
+  NSRect frame = _searchField.frame;
+  frame.size.width = toolbar.frame.size.width - frame.origin.x - SEARCH_FIELD_RIGHT_PADDING;
+  _searchField.frame = frame;
+}
 @end

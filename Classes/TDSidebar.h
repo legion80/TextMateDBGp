@@ -49,6 +49,7 @@
 @property (nonatomic,retain) IBOutlet TDBookmarksView* bookmarksView;
 @property (nonatomic,readonly) TDProject* project;
 
+- (void)adjustLayout;
 - (IBAction)toolbarClicked:(id)sender;
 - (SidebarTab)selectedTab;
 - (void)selectTab:(SidebarTab)tab;

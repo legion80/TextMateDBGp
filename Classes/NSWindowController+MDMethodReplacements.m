@@ -80,7 +80,7 @@
 		
 		TDSplitView *contentView = (TDSplitView *)[window contentView];
 		
-		NSView *sideView = contentView.sidebar; //[[contentView subviews]objectAtIndex:0];
+		NSView *sideView = contentView.sidebar;
     NSRect sideViewFrame = [sideView frame];
 		
     if (sideViewFrame.size.width == 0) {
