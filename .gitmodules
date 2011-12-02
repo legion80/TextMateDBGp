@@ -3,4 +3,4 @@
 	url = https://github.com/rentzsch/jrswizzle.git
 [submodule "ThirdParty/cocoaasyncsocket"]
 	path = ThirdParty/cocoaasyncsocket
-	url = https://code.google.com/p/cocoaasyncsocket/
+	url = https://github.com/robbiehanson/CocoaAsyncSocket.git
